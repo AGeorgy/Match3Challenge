@@ -4,14 +4,14 @@ using UnityEngine;
 namespace Tactile.TactileMatch3Challenge.ViewComponents {
 
 	public class BoardRenderer : MonoBehaviour {
-		
-		[SerializeField] private PieceTypeDatabase pieceTypeDatabase;
 		[SerializeField] private VisualPiece visualPiecePrefab;
 		
 		private Board board;
+		private PieceTypeDatabase pieceTypeDatabase;
 		
-		public void Initialize(Board board) {
+		public void Initialize(Board board, PieceTypeDatabase pieceTypeDatabase) {
 			this.board = board;
+            this.pieceTypeDatabase = pieceTypeDatabase;
 
 			CenterCamera();
 			CreateVisualPiecesFromBoardState();
