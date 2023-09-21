@@ -14,7 +14,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests {
             int[,] state = {
                 {0, 0, 0}
             };
-            var board = Board.Create(state, new PieceSpawner());
+            var board = Board.Create(state, new PieceSpawner(0));
             
             // Act
             var width = board.Width;
@@ -30,7 +30,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests {
                 {0, 0, 0},
                 {0, 0, 0}
             };
-            var board = Board.Create(state, new PieceSpawner());
+            var board = Board.Create(state, new PieceSpawner(0));
             
             // Act
             var height = board.Height;
@@ -49,7 +49,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests {
                 {1, 4, 0},
                 {0, 2, 3}
             };
-            var board = Board.Create(state, new PieceSpawner());
+            var board = Board.Create(state, new PieceSpawner(4));
             
             // Act & Assert
             return board.GetAt(x, y).type;
@@ -62,7 +62,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests {
                 {1, 0, 0},
                 {0, 0, 0}
             };
-            var board = Board.Create(state, new PieceSpawner());
+            var board = Board.Create(state, new PieceSpawner(4));
             
             // Act - Assert
             Assert.Throws<IndexOutOfRangeException>(() => board.GetAt(x: 42, y: 0));
@@ -78,7 +78,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests {
                 {2, 3, 2, 4},
                 {1, 2, 1, 4}
             };
-            var board = Board.Create(state, new PieceSpawner());
+            var board = Board.Create(state, new PieceSpawner(4));
             
             // Act & Assert
             return GetTypesFromPieces(board.GetNeighbors(x, y));
@@ -92,7 +92,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests {
                 {2, 3, 2},
                 {1, 3, 1}
             };
-            var board = Board.Create(state, new PieceSpawner());
+            var board = Board.Create(state, new PieceSpawner(4));
             
             // Act
             var connectedNeighbors = board.GetConnected(x: 1, y: 1);
@@ -112,7 +112,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests {
                 {0, 0, 0, 0, 1, 1},
                 {0, 0, 0, 0, 1, 1},
             };
-            var board = Board.Create(state, new PieceSpawner());
+            var board = Board.Create(state, new PieceSpawner(4));
             
             // Act
             var connectedNeighbors = board.GetConnected(x: 1, y: 1);
@@ -132,7 +132,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests {
                 {0, 1, 1, 1, 0, 0},
                 {0, 0, 0, 0, 1, 1},
             };
-            var board = Board.Create(state, new PieceSpawner());
+            var board = Board.Create(state, new PieceSpawner(4));
             
             // Act
             var cluster = board.GetConnected(x: 1, y: 1);
@@ -150,7 +150,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests {
             };
             
             //Act            
-            var board = Board.Create(state, new PieceSpawner());
+            var board = Board.Create(state, new PieceSpawner(4));
             
             //Assert
             Assert.That(board.GetAt(0, 0).type,Is.EqualTo(0));
