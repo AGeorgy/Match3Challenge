@@ -157,33 +157,36 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests {
             Assert.That(board.GetAt(4, 1).type,Is.EqualTo(5));
         }
         
-        [Test]
-		public void MoveAndCreatePiecesUntilFull_GivenSelectedPieceInAsymmetricalCluster_ShouldRemoveAllNeighborsAndMovePiecesToAvailableSlots() {
+        [TestCase( 0 )]
+        [TestCase( 1 )]
+        [TestCase( 2 )]
+        [TestCase( 3 )]
+		public void MoveAndCreatePiecesUntilFull_GivenSelectedPieceInAsymmetricalCluster_ShouldRemoveAllNeighborsAndMovePiecesToAvailableSlots(int swapValue) {
+            var v = swapValue;
 			// Arrange
 			int[,] state = {
 				{0, 4, 4, 4, 4},
 				{0, 2, 3, 1, 4},
-				{0, 4, 4, 4, 0},
-				{0, 0, 4, 0, 0}
+				{4, 4, 1, 4, 0},
+				{v, v, 4, 0, 0}
 			};
-			var randomSpawner = new PieceSpawnerFake(42);
+			var randomSpawner = new PieceSpawnerFake(8);
 			var board = Board.Create(state, randomSpawner);
 			
 			// Act
-			board.FindAndRemoveConnectedAt(1, 2);
+			board.FindAndRemoveConnectedAt(1, 3);
 			board.MoveAndCreatePiecesUntilFull();
 
 			// Assert
 			int[,] expected = {
-				{0, 42, 42, 42, 4},
-				{0,  4, 42,  4, 4},
-				{0,  2,  4,  1, 0},
-				{0,  0,  3,  0, 0}
+				{8, 8, 4, 4, 4},
+				{0, 4, 3, 1, 4},
+				{0, 2, 1, 4, 0},
+				{4, 4, 4, 0, 0}
 			};
 
 			var result = board.GetBoardStateAsArrayWithTypes();
 			Assert.That(result, Is.EqualTo(expected));
-			
 		}
 
         private int[] GetTypesFromPieces(Piece[] pieces) {
