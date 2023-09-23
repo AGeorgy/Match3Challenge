@@ -200,7 +200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1325d52165a04f82952329d979d6df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualPiecePrefab: {fileID: 114334551203518046, guid: 7503254cc2e4e4ef4981b5f8aedfe466,
+  animator: {fileID: 11400000, guid: 73503e8eef8a14a3e8d3dcab8377c612, type: 2}
+  visualPiecePrefab: {fileID: 114334551203518046, guid: a14f92336230741b5b256d52dd03cc86,
     type: 3}
 --- !u!4 &1201935909
 Transform:

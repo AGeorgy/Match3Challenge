@@ -1,9 +1,12 @@
-﻿using Tactile.TactileMatch3Challenge.Model;
+﻿using System.Collections.Generic;
+using Tactile.TactileMatch3Challenge.Model;
+using Tactile.TactileMatch3Challenge.Views.Animation;
 using UnityEngine;
 
 namespace Tactile.TactileMatch3Challenge.ViewComponents {
 
 	public class BoardRenderer : MonoBehaviour {
+		[SerializeField] private ShiftDownAnimator animator;
 		[SerializeField] private VisualPiece visualPiecePrefab;
 		
 		private Board board;
@@ -25,15 +28,9 @@ namespace Tactile.TactileMatch3Challenge.ViewComponents {
 			DestroyVisualPieces();
 
 			foreach (var pieceInfo in board.IteratePieces()) {
-				
-				var visualPiece = CreateVisualPiece(pieceInfo.piece);
-				visualPiece.transform.localPosition = LogicPosToVisualPos(pieceInfo.pos.x, pieceInfo.pos.y);
-
+				var visualPieceGO = CreateVisualPieceAndAddToAnimator(pieceInfo.piece);
+				visualPieceGO.transform.localPosition = ViewUtils.LogicPosToVisualPos(pieceInfo.pos.x, pieceInfo.pos.y);
 			}
-		}
-		
-		public Vector3 LogicPosToVisualPos(float x,float y) { 
-			return new Vector3(x, -y, -y);
 		}
 
 		private BoardPos ScreenPosToLogicPos(float x, float y) { 
@@ -48,16 +45,17 @@ namespace Tactile.TactileMatch3Challenge.ViewComponents {
 
 		}
 
-		private VisualPiece CreateVisualPiece(Piece piece) {
+		private GameObject CreateVisualPiece(Piece piece) {
 			
 			var pieceObject = Instantiate(visualPiecePrefab, transform, true);
 			var sprite = pieceTypeDatabase.GetSpriteForPieceType(piece.type);
 			pieceObject.SetSprite(sprite);
-			return pieceObject;
+			return pieceObject.gameObject;
 			
 		}
 
 		private void DestroyVisualPieces() {
+            animator.Clear();
 			foreach (var visualPiece in GetComponentsInChildren<VisualPiece>()) {
 				Object.Destroy(visualPiece.gameObject);
 			}
@@ -70,13 +68,19 @@ namespace Tactile.TactileMatch3Challenge.ViewComponents {
 				var pos = ScreenPosToLogicPos(Input.mousePosition.x, Input.mousePosition.y);
 
 				if (board.IsWithinBounds(pos.x, pos.y)) {
-					board.Resolve(pos.x, pos.y);
-					CreateVisualPiecesFromBoardState();
-				}
+					var resolved = board.Resolve(pos.x, pos.y);
 
+                    animator.AnimateSequance(resolved, (go) => {
+                        Object.Destroy(go);
+                    }, (go)=> CreateVisualPieceAndAddToAnimator(go));
+				}
 			}
 		}
-		
-	}
 
+        private GameObject CreateVisualPieceAndAddToAnimator(Piece piece) {
+            var visualPieceGO = CreateVisualPiece(piece);
+            animator.Add(piece, visualPieceGO);
+            return visualPieceGO;
+        }
+    }
 }
