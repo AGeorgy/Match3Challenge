@@ -63,8 +63,9 @@ namespace Tactile.TactileMatch3Challenge.Model {
         }
 
         public ResolveResult Resolve(int x, int y) {
-	        FindAndRemoveConnectedAt(x, y);
-	        return MoveAndCreatePiecesUntilFull();
+	        var swapped = FindAndRemoveConnectedAt(x, y);
+            var changed = MoveAndCreatePiecesUntilFull();
+	        return new ResolveResult(changed, swapped);
         }
 
         public Piece GetAt(int x, int y) {
@@ -163,17 +164,19 @@ namespace Tactile.TactileMatch3Challenge.Model {
             return neighbors;
         }
         
-        public void FindAndRemoveConnectedAt(int x, int y) {
+        public List<Piece> FindAndRemoveConnectedAt(int x, int y) {
 
 			var connections = GetConnected(x, y);
 			if (connections.Count > 1) {
-				RemovePieces(connections);
+				return RemovePieces(connections);
 			}
+
+            return new List<Piece>();
 		}
 
-		public ResolveResult MoveAndCreatePiecesUntilFull() {
+		public Dictionary<Piece, ChangeInfo> MoveAndCreatePiecesUntilFull() {
 			
-			var result = new ResolveResult();
+			var result = new Dictionary<Piece, ChangeInfo>();
 			
 			int resolveStep = 0;
 			bool moreToResolve = true;
@@ -187,16 +190,21 @@ namespace Tactile.TactileMatch3Challenge.Model {
 			return result;
 		}
 
-		private void RemovePieces(List<Piece> connections) {
+		private List<Piece> RemovePieces(List<Piece> connections) {
+            var result = new List<Piece>();
+
 			foreach (var piece in connections) {
-				int x,y;
-				if(TryGetPiecePos(piece, out x, out y)){ 
-					RemovePieceAt(x,y);
-				}
-			}
+                if (TryGetPiecePos(piece, out int x, out int y))
+                {
+                    RemovePieceAt(x, y);
+                    result.Add(piece);
+                }
+            }
+
+            return result;
 		}
 		
-		private bool CreatePiecesAtTop(ResolveResult resolveResult, int resolveStep) {
+		private bool CreatePiecesAtTop(Dictionary<Piece, ChangeInfo> created, int resolveStep) {
 			var createdAnyPieces = false;
 			var y = 0;
 			for (int x = 0; x < Width; x++) {
@@ -204,7 +212,7 @@ namespace Tactile.TactileMatch3Challenge.Model {
 					var piece = CreatePiece(pieceSpawner.CreateBasicPiece(), x,y);
 					createdAnyPieces = true;
                     
-					resolveResult.changes[piece] = new ChangeInfo(){
+					created[piece] = new ChangeInfo(){
 						CreationTime = resolveStep,
 						WasCreated = true,
 						ToPos = new BoardPos(x,y),
@@ -216,7 +224,7 @@ namespace Tactile.TactileMatch3Challenge.Model {
 			return createdAnyPieces;
 		}
 
-		private bool MovePiecesOneDownIfAble(ResolveResult resolveResult) {
+		private bool MovePiecesOneDownIfAble(Dictionary<Piece, ChangeInfo> moved) {
 			
 			bool movedAny = false;
 			
@@ -238,11 +246,12 @@ namespace Tactile.TactileMatch3Challenge.Model {
 					MovePiece(fromX,fromY, x, y);
 					movedAny = true;
 					
-					if(!resolveResult.changes.ContainsKey(pieceToMove)) {
-						resolveResult.changes[pieceToMove] = new ChangeInfo();
-						resolveResult.changes[pieceToMove].FromPos = new BoardPos(fromX,fromY);
+					if(!moved.ContainsKey(pieceToMove)) {
+						moved[pieceToMove] = new ChangeInfo{
+                            FromPos = new BoardPos(fromX,fromY)
+                        };
 					};
-					resolveResult.changes[pieceToMove].ToPos = new BoardPos(x,y);
+					moved[pieceToMove].ToPos = new BoardPos(x,y);
 					
 				}
 			}
