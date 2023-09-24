@@ -11,7 +11,11 @@ namespace Tactile.TactileMatch3Challenge.Model {
 		public int CreateBasicPiece() {
 			return UnityEngine.Random.Range(0, maxPiceCount);
 		}
-		
-	}
+
+        public int CreateSpecialPiece()
+        {
+            return maxPiceCount - 1;
+        }
+    }
 
 }

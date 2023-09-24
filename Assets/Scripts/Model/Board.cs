@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Tactile.TactileMatch3Challenge.Model {
@@ -66,8 +67,21 @@ namespace Tactile.TactileMatch3Challenge.Model {
             var result = new Dictionary<Piece, ChangeInfo>();
 
 	        FindAndRemoveConnectedAt(x, y, result);
+            PlaceSpecialPieceAt(x, y, result);
             MoveAndCreatePiecesUntilFull(result);
 	        return new ResolveResult(result);
+        }
+
+        private void PlaceSpecialPieceAt(int x, int y, Dictionary<Piece, ChangeInfo> result)
+        {
+            if (result.Count >= 5){
+                var piece = CreatePiece(pieceSpawner.CreateSpecialPiece(), x, y);
+                result[piece] = new ChangeInfo()
+                {
+                    Change = ChangeType.Created,
+                    CurrPos = new BoardPos(x, y)
+                };
+            }
         }
 
         public Piece GetAt(int x, int y) {
@@ -209,7 +223,7 @@ namespace Tactile.TactileMatch3Challenge.Model {
 						CreationTime = resolveStep,
 						Change = ChangeType.CreatedAndMoved,
 						ToPos = new BoardPos(x,y),
-						FromPos = new BoardPos(x,y-1)
+						CurrPos = new BoardPos(x,y-1)
 					};
 				}
 			}
@@ -241,7 +255,7 @@ namespace Tactile.TactileMatch3Challenge.Model {
 					
 					if(!moved.ContainsKey(pieceToMove)) {
 						moved[pieceToMove] = new ChangeInfo{
-                            FromPos = new BoardPos(fromX,fromY),
+                            CurrPos = new BoardPos(fromX,fromY),
                             Change = ChangeType.Moved,
                         };
 					};
