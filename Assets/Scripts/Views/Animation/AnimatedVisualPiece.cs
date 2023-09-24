@@ -21,11 +21,10 @@ namespace Tactile.TactileMatch3Challenge.Views.Animation {
             StartCoroutineIfStacked();
         }
 
-        public void AnimateSpawn(float delay, Vector3 from, Vector3 to)
+        public void AnimateSpawn(float delay, Vector3 from)
         {
             animationStack.Enqueue(DelayCoroutine(delay));
             animationStack.Enqueue(AnimateSpawnCoroutine(from));
-            animationStack.Enqueue(AnimateMoveCoroutine(from, to));
             StartCoroutineIfStacked();
         }
 

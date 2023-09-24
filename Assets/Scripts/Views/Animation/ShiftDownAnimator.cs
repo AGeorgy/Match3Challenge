@@ -33,20 +33,31 @@ namespace Tactile.TactileMatch3Challenge.Views.Animation {
             {
                 var changeInfo = changes[piece];
 
-                if (changeInfo.WasCreated)
-                {
+                if(changeInfo.Change == ChangeType.Created){
                     onCreate(piece);
                     var newVisualPiece = visualPieces[piece];
                     var from = ViewUtils.LogicPosToVisualPos(changeInfo.FromPos.x, changeInfo.FromPos.y);
-                    var to = ViewUtils.LogicPosToVisualPos(changeInfo.ToPos.x, changeInfo.ToPos.y);
-                    newVisualPiece.GetComponent<AnimatedVisualPiece>().AnimateSpawn(GetSpawnDelay(changeInfo.CreationTime), from, to);
+                    newVisualPiece.GetComponent<AnimatedVisualPiece>().AnimateSpawn(GetSpawnDelay(changeInfo.CreationTime), from);
                 }
-                else
-                {
+                else if(changeInfo.Change == ChangeType.Moved){
                     var visualPiece = visualPieces[piece];
                     var from = ViewUtils.LogicPosToVisualPos(changeInfo.FromPos.x, changeInfo.FromPos.y);
                     var to = ViewUtils.LogicPosToVisualPos(changeInfo.ToPos.x, changeInfo.ToPos.y);
                     visualPiece.AnimateMove(GetMoveDelay(changeInfo.CreationTime), from, to);
+                }
+                else if(changeInfo.Change == ChangeType.Removed){
+
+                }
+                else if(changeInfo.Change == ChangeType.CreatedAndMoved){
+                    onCreate(piece);
+                    var newVisualPiece = visualPieces[piece];
+                    var from = ViewUtils.LogicPosToVisualPos(changeInfo.FromPos.x, changeInfo.FromPos.y);
+                    var to = ViewUtils.LogicPosToVisualPos(changeInfo.ToPos.x, changeInfo.ToPos.y);
+                    newVisualPiece.GetComponent<AnimatedVisualPiece>().AnimateSpawn(GetSpawnDelay(changeInfo.CreationTime), from);
+                    newVisualPiece.GetComponent<AnimatedVisualPiece>().AnimateMove(0, from, to);
+                }
+                else{
+                    throw new ArgumentOutOfRangeException();
                 }
             }
         }

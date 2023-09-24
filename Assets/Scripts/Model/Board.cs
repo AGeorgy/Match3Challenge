@@ -214,7 +214,7 @@ namespace Tactile.TactileMatch3Challenge.Model {
                     
 					created[piece] = new ChangeInfo(){
 						CreationTime = resolveStep,
-						WasCreated = true,
+						Change = ChangeType.CreatedAndMoved,
 						ToPos = new BoardPos(x,y),
 						FromPos = new BoardPos(x,y-1)
 					};
@@ -248,10 +248,13 @@ namespace Tactile.TactileMatch3Challenge.Model {
 					
 					if(!moved.ContainsKey(pieceToMove)) {
 						moved[pieceToMove] = new ChangeInfo{
-                            FromPos = new BoardPos(fromX,fromY)
+                            FromPos = new BoardPos(fromX,fromY),
+                            Change = ChangeType.Moved,
                         };
 					};
-					moved[pieceToMove].ToPos = new BoardPos(x,y);
+                    var info = moved[pieceToMove];
+					info.ToPos = new BoardPos(x,y);
+                    info.Change |= ChangeType.Moved;
 					
 				}
 			}
