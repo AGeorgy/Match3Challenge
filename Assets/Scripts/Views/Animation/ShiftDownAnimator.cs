@@ -18,16 +18,6 @@ namespace Tactile.TactileMatch3Challenge.Views.Animation {
         public void AnimateSequance(ResolveResult resolveResult, Action<GameObject> onDestroy, Action<Piece> onCreate)
         {
             var changes = resolveResult.Changes;
-            var swapped = resolveResult.Swapped;
-
-            foreach (var piece in swapped)
-            {
-                var visualPiece = visualPieces[piece];
-                visualPieces.Remove(piece);
-                visualPiece.AnimateDestroy(destroyAnimationDelay, () => {
-                    onDestroy(visualPiece.gameObject);
-                });
-            }
 
             foreach (var piece in changes.Keys)
             {
@@ -46,7 +36,11 @@ namespace Tactile.TactileMatch3Challenge.Views.Animation {
                     visualPiece.AnimateMove(GetMoveDelay(changeInfo.CreationTime), from, to);
                 }
                 else if(changeInfo.Change == ChangeType.Removed){
-
+                    var visualPiece = visualPieces[piece];
+                    visualPieces.Remove(piece);
+                    visualPiece.AnimateDestroy(destroyAnimationDelay, () => {
+                        onDestroy(visualPiece.gameObject);
+                    });
                 }
                 else if(changeInfo.Change == ChangeType.CreatedAndMoved){
                     onCreate(piece);

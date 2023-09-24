@@ -63,9 +63,11 @@ namespace Tactile.TactileMatch3Challenge.Model {
         }
 
         public ResolveResult Resolve(int x, int y) {
-	        var swapped = FindAndRemoveConnectedAt(x, y);
-            var changed = MoveAndCreatePiecesUntilFull();
-	        return new ResolveResult(changed, swapped);
+            var result = new Dictionary<Piece, ChangeInfo>();
+
+	        FindAndRemoveConnectedAt(x, y, result);
+            MoveAndCreatePiecesUntilFull(result);
+	        return new ResolveResult(result);
         }
 
         public Piece GetAt(int x, int y) {
@@ -164,44 +166,35 @@ namespace Tactile.TactileMatch3Challenge.Model {
             return neighbors;
         }
         
-        public List<Piece> FindAndRemoveConnectedAt(int x, int y) {
-
+        public void FindAndRemoveConnectedAt(int x, int y, in Dictionary<Piece, ChangeInfo> removed) {
 			var connections = GetConnected(x, y);
 			if (connections.Count > 1) {
-				return RemovePieces(connections);
+				RemovePieces(connections, removed);
 			}
-
-            return new List<Piece>();
 		}
 
-		public Dictionary<Piece, ChangeInfo> MoveAndCreatePiecesUntilFull() {
-			
-			var result = new Dictionary<Piece, ChangeInfo>();
-			
+		public void MoveAndCreatePiecesUntilFull(in Dictionary<Piece, ChangeInfo> changed) {
 			int resolveStep = 0;
 			bool moreToResolve = true;
 			
 			while (moreToResolve) {
-				moreToResolve = MovePiecesOneDownIfAble(result);
-				moreToResolve |= CreatePiecesAtTop(result, resolveStep);
+				moreToResolve = MovePiecesOneDownIfAble(changed);
+				moreToResolve |= CreatePiecesAtTop(changed, resolveStep);
 				resolveStep++;
 			}
-
-			return result;
 		}
 
-		private List<Piece> RemovePieces(List<Piece> connections) {
-            var result = new List<Piece>();
-
+		private void RemovePieces(List<Piece> connections, in Dictionary<Piece, ChangeInfo> removed) {
 			foreach (var piece in connections) {
                 if (TryGetPiecePos(piece, out int x, out int y))
                 {
                     RemovePieceAt(x, y);
-                    result.Add(piece);
+                    removed.Add(piece, new ChangeInfo()
+                    {
+                        Change = ChangeType.Removed
+                    });
                 }
             }
-
-            return result;
 		}
 		
 		private bool CreatePiecesAtTop(Dictionary<Piece, ChangeInfo> created, int resolveStep) {

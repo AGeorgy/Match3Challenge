@@ -161,7 +161,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests {
         [TestCase( 1 )]
         [TestCase( 2 )]
         [TestCase( 3 )]
-		public void MoveAndCreatePiecesUntilFull_GivenSelectedPieceInAsymmetricalCluster_ShouldRemoveAllNeighborsAndMovePiecesToAvailableSlots(int swapValue) {
+		public void Resolve_GivenSelectedPieceInAsymmetricalCluster_ShouldRemoveAllNeighborsAndMovePiecesToAvailableSlots(int swapValue) {
             var v = swapValue;
 			// Arrange
 			int[,] state = {
@@ -174,8 +174,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests {
 			var board = Board.Create(state, randomSpawner);
 			
 			// Act
-			board.FindAndRemoveConnectedAt(1, 3);
-			board.MoveAndCreatePiecesUntilFull();
+			board.Resolve(1, 3);
 
 			// Assert
 			int[,] expected = {
