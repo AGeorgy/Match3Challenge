@@ -1,25 +1,38 @@
-using Tactile.TactileMatch3Challenge.Model;
+using Tactile.TactileMatch3Challenge.PieceSpawn;
+using Tactile.TactileMatch3Challenge.Solvers;
+using UnityEngine;
 
 namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
 {
-    public class PieceSpawnerFake /* : IPieceSpawner */
+    public class PieceSpawnerFake : IPieceSpawner
     {
-
         private readonly int value;
+        private readonly ISolver solver;
 
-        public PieceSpawnerFake(int value)
+        public PieceSpawnerFake(int value, ISolver solver = null)
         {
             this.value = value;
+            this.solver = solver;
         }
 
-        public int CreateBasicPiece()
+        public int GetRandomPiece()
         {
             return value;
         }
 
-        public int CreateSpecialPiece()
+        public ISolver GetSolver(int type)
+        {
+            return solver;
+        }
+
+        public GameObject GetVisualPiece(int type)
         {
             throw new System.NotImplementedException();
+        }
+
+        public bool IsRelevant(int type)
+        {
+            return true;
         }
     }
 }
