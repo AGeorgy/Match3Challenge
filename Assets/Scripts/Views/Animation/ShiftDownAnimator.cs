@@ -4,61 +4,66 @@ using Tactile.TactileMatch3Challenge.Model;
 using Tactile.TactileMatch3Challenge.ViewComponents;
 using UnityEngine;
 
-namespace Tactile.TactileMatch3Challenge.Views.Animation {
+namespace Tactile.TactileMatch3Challenge.Views.Animation
+{
 
     [CreateAssetMenu(fileName = "Animator", menuName = "Tactile/Animator", order = 1)]
     public class ShiftDownAnimator : ScriptableObject
     {
-        [SerializeField] private float spawnAnimationDelay = 0.2f;
-        [SerializeField] private float moveAnimationDelay = 0.2f;
-        [SerializeField] private float destroyAnimationDelay = 0.0f;
+        [SerializeField] private float waveDelay = 0.2f;
 
         private readonly Dictionary<Piece, AnimatedVisualPiece> visualPieces = new();
 
         public void AnimateSequance(ResolveResult resolveResult, Action<GameObject> onDestroy, Action<Piece> onCreate)
         {
             var changes = resolveResult.Changes;
-            var swapped = resolveResult.Swapped;
-
-            foreach (var piece in swapped)
-            {
-                var visualPiece = visualPieces[piece];
-                visualPieces.Remove(piece);
-                visualPiece.AnimateDestroy(destroyAnimationDelay, () => {
-                    onDestroy(visualPiece.gameObject);
-                });
-            }
 
             foreach (var piece in changes.Keys)
             {
                 var changeInfo = changes[piece];
 
-                if (changeInfo.WasCreated)
+                if (changeInfo.Change == ChangeType.Created)
                 {
                     onCreate(piece);
                     var newVisualPiece = visualPieces[piece];
-                    var from = ViewUtils.LogicPosToVisualPos(changeInfo.FromPos.x, changeInfo.FromPos.y);
+                    var from = ViewUtils.LogicPosToVisualPos(changeInfo.CurrPos.x, changeInfo.CurrPos.y);
+                    newVisualPiece.GetComponent<AnimatedVisualPiece>().AnimateSpawn(GetDelay(changeInfo.CreationTime), from);
+                }
+                else if (changeInfo.Change == ChangeType.Moved)
+                {
+                    var visualPiece = visualPieces[piece];
+                    var from = ViewUtils.LogicPosToVisualPos(changeInfo.CurrPos.x, changeInfo.CurrPos.y);
                     var to = ViewUtils.LogicPosToVisualPos(changeInfo.ToPos.x, changeInfo.ToPos.y);
-                    newVisualPiece.GetComponent<AnimatedVisualPiece>().AnimateSpawn(GetSpawnDelay(changeInfo.CreationTime), from, to);
+                    visualPiece.AnimateMove(GetDelay(changeInfo.CreationTime), from, to);
+                }
+                else if (changeInfo.Change == ChangeType.Removed)
+                {
+                    var visualPiece = visualPieces[piece];
+                    visualPieces.Remove(piece);
+                    visualPiece.AnimateDestroy(GetDelay(changeInfo.CreationTime), () =>
+                    {
+                        onDestroy(visualPiece.gameObject);
+                    });
+                }
+                else if (changeInfo.Change == ChangeType.CreatedAndMoved)
+                {
+                    onCreate(piece);
+                    var newVisualPiece = visualPieces[piece];
+                    var from = ViewUtils.LogicPosToVisualPos(changeInfo.CurrPos.x, changeInfo.CurrPos.y);
+                    var to = ViewUtils.LogicPosToVisualPos(changeInfo.ToPos.x, changeInfo.ToPos.y);
+                    newVisualPiece.GetComponent<AnimatedVisualPiece>().AnimateSpawn(GetDelay(changeInfo.CreationTime), from);
+                    newVisualPiece.GetComponent<AnimatedVisualPiece>().AnimateMove(0, from, to);
                 }
                 else
                 {
-                    var visualPiece = visualPieces[piece];
-                    var from = ViewUtils.LogicPosToVisualPos(changeInfo.FromPos.x, changeInfo.FromPos.y);
-                    var to = ViewUtils.LogicPosToVisualPos(changeInfo.ToPos.x, changeInfo.ToPos.y);
-                    visualPiece.AnimateMove(GetMoveDelay(changeInfo.CreationTime), from, to);
+                    throw new ArgumentOutOfRangeException();
                 }
             }
         }
 
-        private float GetSpawnDelay(int creationTime)
+        private float GetDelay(int wave)
         {
-            return destroyAnimationDelay + spawnAnimationDelay + creationTime * moveAnimationDelay;
-        }
-
-        private float GetMoveDelay(int wave)
-        {
-            return destroyAnimationDelay + moveAnimationDelay * wave;
+            return waveDelay * wave;
         }
 
         internal void Add(Piece piece, GameObject gameObject)
