@@ -23,7 +23,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
                 {v, v, 4, 0, 0}
             };
             var randomSpawner = new PieceSpawnerFake(8, new ConnectedSameTypeSolver());
-            var board = new Board(state);
+            var board = Board.Create(state);
             var strategy = new SameTypeStrategy(randomSpawner);
 
             // Act
@@ -59,7 +59,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
                 {v, v, 4, 0, 0}
             };
             var randomSpawner = new PieceSpawnerFake(8, new HorizontalLineSolver());
-            var board = new Board(state);
+            var board = Board.Create(state);
             var strategy = new SameTypeStrategy(randomSpawner);
 
             // Act
@@ -95,7 +95,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
                 {v, v, 4, 0, 0}
             };
             var randomSpawner = new PieceSpawnerFake(8, new VerticalLineSolver());
-            var board = new Board(state);
+            var board = Board.Create(state);
             var strategy = new SameTypeStrategy(randomSpawner);
 
             // Act

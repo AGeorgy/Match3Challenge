@@ -9,15 +9,27 @@ namespace Tactile.TactileMatch3Challenge.ViewComponents
         [SerializeField] private ShiftDownAnimator animator;
 
         private Board board;
-        private StrategyResolver resolver;
+        private Game game;
+        private bool isInputBlocked;
 
-        public void Initialize(Board board, StrategyResolver resolver)
+        public void Initialize(Board board, Game game)
         {
             this.board = board;
-            this.resolver = resolver;
+            this.game = game;
 
             CenterCamera();
+            Reset();
+        }
+
+        public void BlockInput()
+        {
+            isInputBlocked = true;
+        }
+
+        public void Reset()
+        {
             CreateVisualPiecesFromBoardState();
+            isInputBlocked = false;
         }
 
         private void CenterCamera()
@@ -51,21 +63,18 @@ namespace Tactile.TactileMatch3Challenge.ViewComponents
         private void DestroyVisualPieces()
         {
             animator.Clear();
-            foreach (var visualPiece in GetComponentsInChildren<VisualPiece>())
-            {
-                Object.Destroy(visualPiece.gameObject);
-            }
+            game.Reset();
         }
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (!isInputBlocked && Input.GetMouseButtonDown(0))
             {
                 var pos = ScreenPosToLogicPos(Input.mousePosition.x, Input.mousePosition.y);
 
                 if (board.IsWithinBounds(pos.x, pos.y))
                 {
-                    var resolved = resolver.Resolve(pos.x, pos.y);
+                    var resolved = game.Resolve(pos.x, pos.y);
 
                     animator.AnimateSequance(resolved, (go) =>
                     {
@@ -77,7 +86,7 @@ namespace Tactile.TactileMatch3Challenge.ViewComponents
 
         private GameObject CreateVisualPieceAndAddToAnimator(Piece piece)
         {
-            var visualPieceGO = resolver.CreatePiece(piece);
+            var visualPieceGO = game.CreatePiece(piece);
             animator.Add(piece, visualPieceGO);
             return visualPieceGO;
         }

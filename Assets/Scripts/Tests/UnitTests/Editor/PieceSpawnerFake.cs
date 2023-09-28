@@ -15,6 +15,11 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
             this.solver = solver;
         }
 
+        public void Clear()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public int GetRandomPiece()
         {
             return value;

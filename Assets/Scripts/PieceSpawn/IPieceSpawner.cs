@@ -9,5 +9,6 @@ namespace Tactile.TactileMatch3Challenge.PieceSpawn
         bool IsRelevant(int type);
         int GetRandomPiece();
         GameObject GetVisualPiece(int type);
+        void Clear();
     }
 }

@@ -8,14 +8,16 @@ namespace Tactile.TactileMatch3Challenge.Model
 
         public static Board Create(int[,] definition)
         {
-            return new Board(definition);
+            var board = new Board();
+            board.Update(definition);
+            return board;
         }
 
         public int Width => boardState.GetLength(0);
 
         public int Height => boardState.GetLength(1);
 
-        public Board(int[,] definition)
+        public void Update(int[,] definition)
         {
             var transposed = ArrayUtility.TransposeArray(definition);
             CreatePieces(transposed);

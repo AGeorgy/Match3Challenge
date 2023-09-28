@@ -1,17 +1,21 @@
+using System;
 using System.Collections.Generic;
+using Tactile.TactileMatch3Challenge.Level;
 using Tactile.TactileMatch3Challenge.Strategy;
 using UnityEngine;
 
 namespace Tactile.TactileMatch3Challenge.Model
 {
-    public class StrategyResolver
+    public class Game
     {
         private readonly IBoard board;
+        private readonly IGameLevel gameLevel;
         private readonly IStrategy[] strategies;
 
-        public StrategyResolver(IBoard board, params IStrategy[] strategies)
+        public Game(IBoard board, IGameLevel gameLevel, params IStrategy[] strategies)
         {
             this.board = board;
+            this.gameLevel = gameLevel;
             this.strategies = strategies;
         }
 
@@ -35,6 +39,7 @@ namespace Tactile.TactileMatch3Challenge.Model
 
             FindAndRemoveConnectedAt(x, y, result);
             MoveAndCreatePiecesUntilFull(result);
+            gameLevel.UpdateLevelStats(result);
 
             return new ResolveResult(result);
         }
@@ -55,6 +60,14 @@ namespace Tactile.TactileMatch3Challenge.Model
                 {
                     return;
                 }
+            }
+        }
+
+        internal void Reset()
+        {
+            foreach (var strategy in strategies)
+            {
+                strategy.Reset();
             }
         }
     }
