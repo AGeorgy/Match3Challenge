@@ -20,7 +20,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
                 {2, 3, 2, 4},
                 {1, 2, 1, 4}
             };
-            var board = new Board(state);
+            var board = Board.Create(state);
             var solver = new ConnectedSameTypeSolver();
 
             // Act
@@ -43,7 +43,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
                 {0, 1, 1, 1, 0, 0},
                 {0, 0, 0, 0, 1, 1},
             };
-            var board = new Board(state);
+            var board = Board.Create(state);
             var solver = new ConnectedSameTypeSolver();
 
             // Act
@@ -66,7 +66,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
                 {2, 3, 2, 4},
                 {1, 2, 1, 4}
             };
-            var board = new Board(state);
+            var board = Board.Create(state);
             var solver = new VerticalLineSolver();
 
             // Act
@@ -89,7 +89,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
                 {2, 3, 2, 4},
                 {1, 2, 1, 4}
             };
-            var board = new Board(state);
+            var board = Board.Create(state);
             var solver = new HorizontalLineSolver();
 
             // Act

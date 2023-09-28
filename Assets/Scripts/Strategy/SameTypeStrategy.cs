@@ -32,6 +32,11 @@ namespace Tactile.TactileMatch3Challenge.Strategy
             }
         }
 
+        public void Reset()
+        {
+            pieceSpawner.Clear();
+        }
+
         public bool Solve(int x, int y, IBoard board, Dictionary<Piece, ChangeInfo> result)
         {
             var piece = board.GetAt(x, y);

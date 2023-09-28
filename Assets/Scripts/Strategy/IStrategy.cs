@@ -8,6 +8,7 @@ namespace Tactile.TactileMatch3Challenge.Strategy
     {
         GameObject CreateVisualPiece(Piece piece);
         void Fill(IBoard board, Dictionary<Piece, ChangeInfo> result);
+        void Reset();
         bool Solve(int x, int y, IBoard board, Dictionary<Piece, ChangeInfo> result);
     }
 }

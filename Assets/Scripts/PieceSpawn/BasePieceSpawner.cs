@@ -43,6 +43,16 @@ namespace Tactile.TactileMatch3Challenge.PieceSpawn
             return Random.Range(indexFromTO.Item1, indexFromTO.Item2 + 1);
         }
 
+        public void Clear()
+        {
+            int childs = transform.childCount;
+
+            for (int i = childs - 1; i >= 0; i--)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+        }
+
         protected virtual (int, int) GetFromToIndex()
         {
             return (0, 0);
