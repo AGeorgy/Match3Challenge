@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Tactile.TactileMatch3Challenge.Level;
 using Tactile.TactileMatch3Challenge.Strategy;
