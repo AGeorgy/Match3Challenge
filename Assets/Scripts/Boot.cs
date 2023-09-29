@@ -6,6 +6,7 @@ using Tactile.TactileMatch3Challenge.Model.Solvers;
 using Tactile.TactileMatch3Challenge.Model.Strategy;
 using Tactile.TactileMatch3Challenge.ViewComponents;
 using UnityEngine;
+using Tactile.TactileMatch3Challenge.Goals;
 
 namespace Tactile.TactileMatch3Challenge
 {
@@ -16,7 +17,7 @@ namespace Tactile.TactileMatch3Challenge
         [SerializeField] private PieceSpawner rockedPieceSpawner;
         [SerializeField] private SpriteDatabase regularSpriteDatabase;
         [SerializeField] private PieceSpawner regularPieceSpawner;
-        [SerializeField] private CollectOneTypePiecesInTurnsSetting goalSetting;
+        [SerializeField] private GoalProvider goalProvider;
         [SerializeField] private LevelInfo levelInfo;
 
 
@@ -75,8 +76,7 @@ namespace Tactile.TactileMatch3Challenge
 
         private void CreateGameLevel()
         {
-            var goal = new CollectOneTypePiecesInTurnsGoal(goalSetting);
-            gameLevel = new GameLevel(goal);
+            gameLevel = new GameLevel(goalProvider.GetGoals());
             gameLevel.Achieved += OnGameGoalAchieved;
             gameLevel.InfoUpdated += OnGameLevelInfoUpdated;
         }

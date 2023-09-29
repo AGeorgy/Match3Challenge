@@ -6,13 +6,20 @@ namespace Tactile.TactileMatch3Challenge.Level
 {
     public class CollectOneTypePiecesInTurnsGoal : IGoal
     {
-        private readonly CollectOneTypePiecesInTurnsSetting setting;
+        private readonly int maxTurns;
+        private readonly int pieceType;
+        private readonly int collectPieces;
+        private readonly string description;
+
         private int turns;
         private int collectedPiecesCounter;
 
-        public CollectOneTypePiecesInTurnsGoal(CollectOneTypePiecesInTurnsSetting setting)
+        public CollectOneTypePiecesInTurnsGoal(int maxTurns, int pieceType, int collectPieces, string description)
         {
-            this.setting = setting;
+            this.maxTurns = maxTurns;
+            this.pieceType = pieceType;
+            this.collectPieces = collectPieces;
+            this.description = description;
 
             Reset();
         }
@@ -20,9 +27,9 @@ namespace Tactile.TactileMatch3Challenge.Level
         public StringBuilder GetSummary()
         {
             StringBuilder summary = new();
-            summary.AppendLine($"Turns: {turns} / {setting.MaxTurns}");
-            summary.AppendLine($"Collected: {collectedPiecesCounter} / {setting.CollectPieces}");
-            summary.AppendLine(setting.Description);
+            summary.AppendLine($"Turns: {turns} / {maxTurns}");
+            summary.AppendLine($"Collected: {collectedPiecesCounter} / {collectPieces}");
+            summary.AppendLine(description);
             return summary;
         }
 
@@ -41,17 +48,17 @@ namespace Tactile.TactileMatch3Challenge.Level
 
             foreach (var pieceInfo in solvedData)
             {
-                if (pieceInfo.Key.Type.Equals(setting.PieceType) && pieceInfo.Value.Change == ChangeType.Removed)
+                if (pieceInfo.Key.Type.Equals(pieceType) && pieceInfo.Value.Change == ChangeType.Removed)
                 {
                     collectedPiecesCounter++;
                 }
             }
 
-            if (collectedPiecesCounter >= setting.CollectPieces)
+            if (collectedPiecesCounter >= collectPieces)
             {
                 return GoalCondition.Achieved;
             }
-            else if (turns >= setting.MaxTurns)
+            else if (turns >= maxTurns)
             {
                 return GoalCondition.Failed;
             }

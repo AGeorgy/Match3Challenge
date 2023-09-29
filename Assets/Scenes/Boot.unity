@@ -239,7 +239,7 @@ MonoBehaviour:
   regularSpriteDatabase: {fileID: 11400000, guid: 2e7accf4a99d74d6cac9a7ac81188043,
     type: 2}
   regularPieceSpawner: {fileID: 1453473628}
-  goalSetting: {fileID: 11400000, guid: 628a567d544a6477f84ae4f836af348a, type: 2}
+  goalProvider: {fileID: 11400000, guid: a83075422252c48619a8627b9987f75a, type: 2}
   levelInfo: {fileID: 1091999949}
 --- !u!4 &625045359
 Transform:

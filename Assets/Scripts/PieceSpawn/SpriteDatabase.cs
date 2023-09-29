@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Tactile.TactileMatch3Challenge.PieceSpawn
 {
-    [CreateAssetMenu(fileName = "SpriteDatabase", menuName = "TactileMatch3Challenge/SpriteDatabase")]
+    [CreateAssetMenu(fileName = "SpriteDatabase", menuName = "Tactile/SpriteDatabase")]
     public class SpriteDatabase : ScriptableObject, ISpriteDatabase
     {
         [SerializeField] private Sprite[] sprites;
