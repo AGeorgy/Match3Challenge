@@ -102,7 +102,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
 
         private int[] GetTypesFromPieces(Dictionary<Piece, ChangeInfo> result)
         {
-            return result.Select(p => p.Key.type).ToArray();
+            return result.Select(p => p.Key.Type).ToArray();
         }
     }
 }

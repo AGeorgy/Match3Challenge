@@ -41,7 +41,7 @@ namespace Tactile.TactileMatch3Challenge.Level
 
             foreach (var pieceInfo in solvedData)
             {
-                if (pieceInfo.Key.type.Equals(setting.PieceType) && pieceInfo.Value.Change == ChangeType.Removed)
+                if (pieceInfo.Key.Type.Equals(setting.PieceType) && pieceInfo.Value.Change == ChangeType.Removed)
                 {
                     collectedPiecesCounter++;
                 }

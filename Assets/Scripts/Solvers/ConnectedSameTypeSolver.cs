@@ -24,7 +24,7 @@ namespace Tactile.TactileMatch3Challenge.Solvers
             {
 
                 var neighbor = neighbors[i];
-                if (!searched.Contains(neighbor) && neighbor.type.Equals(piece.type))
+                if (!searched.Contains(neighbor) && neighbor.Type.Equals(piece.Type))
                 {
                     SearchForConnected(board, neighbor, searched);
                 }

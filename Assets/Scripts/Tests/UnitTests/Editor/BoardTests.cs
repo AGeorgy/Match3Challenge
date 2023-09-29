@@ -80,7 +80,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
             var board = Board.Create(state);
 
             // Act & Assert
-            return board.GetAt(x, y).type;
+            return board.GetAt(x, y).Type;
         }
 
         [Test]
@@ -110,8 +110,8 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
             var board = Board.Create(state);
 
             //Assert
-            Assert.That(board.GetAt(0, 0).type, Is.EqualTo(0));
-            Assert.That(board.GetAt(4, 1).type, Is.EqualTo(5));
+            Assert.That(board.GetAt(0, 0).Type, Is.EqualTo(0));
+            Assert.That(board.GetAt(4, 1).Type, Is.EqualTo(5));
         }
     }
 

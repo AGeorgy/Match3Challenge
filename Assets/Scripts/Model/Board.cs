@@ -40,7 +40,7 @@ namespace Tactile.TactileMatch3Challenge.Model
 
         public Piece CreatePiece(int pieceType, int x, int y)
         {
-            var piece = new Piece() { type = pieceType };
+            var piece = new Piece(pieceType);
             boardState[x, y] = piece;
             return piece;
         }
@@ -54,7 +54,7 @@ namespace Tactile.TactileMatch3Challenge.Model
                 for (int y = 0; y < Height; y++)
                 {
                     var p = boardState[x, y];
-                    result[x, y] = p != null ? p.type : -1;
+                    result[x, y] = p != null ? p.Type : -1;
                 }
             }
 

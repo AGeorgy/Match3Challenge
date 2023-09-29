@@ -26,12 +26,12 @@ namespace Tactile.TactileMatch3Challenge.Strategy
         public bool Solve(int x, int y, IBoard board, Dictionary<Piece, ChangeInfo> result)
         {
             var piece = board.GetAt(x, y);
-            if (!pieceSpawner.IsValid(piece.type))
+            if (!pieceSpawner.IsValid(piece.Type))
             {
                 return false;
             }
 
-            var solver = pieceSpawner.GetSolver(piece.type);
+            var solver = pieceSpawner.GetSolver(piece.Type);
             solver.Solve(x, y, board, result);
 
             return result.Count > 0;

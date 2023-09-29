@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Tactile.TactileMatch3Challenge.Views.Animation
 {
-
     [CreateAssetMenu(fileName = "Animator", menuName = "Tactile/Animator", order = 1)]
     public class ShiftDownAnimator : ScriptableObject
     {
@@ -68,6 +67,10 @@ namespace Tactile.TactileMatch3Challenge.Views.Animation
 
         public void Add(Piece piece, GameObject gameObject)
         {
+            if (gameObject == null)
+            {
+                throw new ArgumentNullException(nameof(gameObject));
+            }
             visualPieces.Add(piece, gameObject.GetComponent<AnimatedVisualPiece>());
         }
 

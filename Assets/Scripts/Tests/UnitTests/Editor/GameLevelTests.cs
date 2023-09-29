@@ -16,7 +16,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
             var level = new GameLevel(new GoalFake(condition, ""));
             var solvedData = new Dictionary<Piece, ChangeInfo>
             {
-                { new Piece { type = 0 }, new ChangeInfo { } }
+                { new Piece(0), new ChangeInfo() }
             };
 
             var achievedEventFired = GoalCondition.NotAchieved;

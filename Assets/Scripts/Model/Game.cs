@@ -23,9 +23,9 @@ namespace Tactile.TactileMatch3Challenge.Model
             foreach (var strategy in strategies)
             {
                 var pieceSpawner = strategy.ValidateAndGetVisualPiece;
-                if (pieceSpawner.IsValid(piece.type))
+                if (pieceSpawner.IsValid(piece.Type))
                 {
-                    return pieceSpawner.GetVisualPiece(piece.type);
+                    return pieceSpawner.GetVisualPiece(piece.Type);
                 }
             }
 
