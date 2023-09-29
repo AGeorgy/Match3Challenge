@@ -7,6 +7,33 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
     public class BoardTests
     {
         [Test]
+        public void BoardUpdate()
+        {
+            // Arrange
+            int[,] state = {
+                {0, 1, 2}
+            };
+            var board = Board.Create(state);
+
+            // Act
+            var result = board.GetBoardStateAsArrayWithTypes();
+            // Assert
+            Assert.AreEqual(result, state);
+
+            // Arrange
+            int[,] stateUpdated = {
+                {0, 1, 2, 3},
+                {0, 1, 2, 3}
+            };
+            board.Update(stateUpdated);
+
+            // Act
+            result = board.GetBoardStateAsArrayWithTypes();
+            // Assert
+            Assert.AreEqual(result, stateUpdated);
+        }
+
+        [Test]
         public void Width_GivenBoardDefinition_ShouldReturnLengthOfXAxis()
         {
             // Arrange
