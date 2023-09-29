@@ -79,14 +79,14 @@ namespace Tactile.TactileMatch3Challenge.ViewComponents
                     animator.AnimateSequance(resolved, (go) =>
                     {
                         Object.Destroy(go);
-                    }, (go) => CreateVisualPieceAndAddToAnimator(go));
+                    }, (piece) => CreateVisualPieceAndAddToAnimator(piece));
                 }
             }
         }
 
         private GameObject CreateVisualPieceAndAddToAnimator(Piece piece)
         {
-            var visualPieceGO = game.CreatePiece(piece);
+            var visualPieceGO = game.GetVisualForPiece(piece);
             animator.Add(piece, visualPieceGO);
             return visualPieceGO;
         }

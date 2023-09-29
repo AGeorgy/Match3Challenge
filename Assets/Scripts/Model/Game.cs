@@ -18,7 +18,7 @@ namespace Tactile.TactileMatch3Challenge.Model
             this.strategies = strategies;
         }
 
-        public GameObject CreatePiece(Piece piece)
+        public GameObject GetVisualForPiece(Piece piece)
         {
             foreach (var strategy in strategies)
             {
