@@ -1,23 +1,18 @@
-using Tactile.TactileMatch3Challenge.PieceSpawn;
-using Tactile.TactileMatch3Challenge.Model.Solvers;
-using UnityEngine;
+using Tactile.TactileMatch3Challenge.Model.PieceGenerators;
 
 namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
 {
-    public class PieceSpawnerFake : IPieceSpawner
+    public class PieceGeneratorFake : IPieceGenerator
     {
         private readonly int value;
-        private readonly ISolver solver;
+        private readonly int startIndex;
+        private readonly int count;
 
-        public PieceSpawnerFake(int value, ISolver solver = null)
+        public PieceGeneratorFake(int value, int startIndex, int count)
         {
             this.value = value;
-            this.solver = solver;
-        }
-
-        public void Clear()
-        {
-            throw new System.NotImplementedException();
+            this.startIndex = startIndex;
+            this.count = count;
         }
 
         public int GetRandomPiece()
@@ -25,19 +20,17 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
             return value;
         }
 
-        public ISolver GetSolver(int type)
+        public bool GetValidIndex(int type, out int index)
         {
-            return solver;
+            var isValid = type >= startIndex && type < startIndex + count;
+            index = isValid ? MapPieceType(type) : -1;
+            return isValid;
         }
 
-        public GameObject GetVisualPiece(int type)
+        private int MapPieceType(int type)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public bool IsValid(int type)
-        {
-            return true;
+            var index = type - startIndex;
+            return index;
         }
     }
 }
