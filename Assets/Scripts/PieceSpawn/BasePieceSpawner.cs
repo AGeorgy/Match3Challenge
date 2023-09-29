@@ -17,7 +17,7 @@ namespace Tactile.TactileMatch3Challenge.PieceSpawn
 
         public GameObject GetVisualPiece(int type)
         {
-            if (!IsRelevant(type))
+            if (!IsValid(type))
             {
                 return null;
             }
@@ -33,7 +33,7 @@ namespace Tactile.TactileMatch3Challenge.PieceSpawn
             return GetSolverBase(type);
         }
 
-        public bool IsRelevant(int type)
+        public bool IsValid(int type)
         {
             return type >= indexFromTO.Item1 && type <= indexFromTO.Item2;
         }

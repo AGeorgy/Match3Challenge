@@ -22,10 +22,10 @@ namespace Tactile.TactileMatch3Challenge.Model
         {
             foreach (var strategy in strategies)
             {
-                var visualPiece = strategy.CreateVisualPiece(piece);
-                if (visualPiece != null)
+                var pieceSpawner = strategy.ValidateAndGetVisualPiece;
+                if (pieceSpawner.IsValid(piece.type))
                 {
-                    return visualPiece;
+                    return pieceSpawner.GetVisualPiece(piece.type);
                 }
             }
 

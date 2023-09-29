@@ -25,7 +25,7 @@ namespace Tactile.TactileMatch3Challenge
             UpdateBoard();
             CreateGameLevel();
             var game = new Game(board, gameLevel,
-            new RockedStrategy(rockedPieceSpawner), new SameTypeStrategy(regularPieceSpawner));
+            new RocketStrategy(rockedPieceSpawner), new SameTypeStrategy(regularPieceSpawner));
 
             boardRenderer.Initialize(board, game);
 

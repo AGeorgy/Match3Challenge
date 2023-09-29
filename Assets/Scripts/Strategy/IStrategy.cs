@@ -1,14 +1,18 @@
 using System.Collections.Generic;
 using Tactile.TactileMatch3Challenge.Model;
-using UnityEngine;
+using Tactile.TactileMatch3Challenge.PieceSpawn;
 
 namespace Tactile.TactileMatch3Challenge.Strategy
 {
-    public interface IStrategy
+    public interface IStrategy : IBaseStrategy
     {
-        GameObject CreateVisualPiece(Piece piece);
         void Fill(IBoard board, Dictionary<Piece, ChangeInfo> result);
-        void Reset();
         bool Solve(int x, int y, IBoard board, Dictionary<Piece, ChangeInfo> result);
+    }
+
+    public interface IBaseStrategy
+    {
+        IValidateAndVisualPiece ValidateAndGetVisualPiece { get; }
+        void Reset();
     }
 }

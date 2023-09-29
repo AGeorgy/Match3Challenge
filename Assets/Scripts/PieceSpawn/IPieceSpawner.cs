@@ -3,12 +3,16 @@ using UnityEngine;
 
 namespace Tactile.TactileMatch3Challenge.PieceSpawn
 {
-    public interface IPieceSpawner
+    public interface IPieceSpawner : IValidateAndVisualPiece
     {
         ISolver GetSolver(int type);
-        bool IsRelevant(int type);
         int GetRandomPiece();
-        GameObject GetVisualPiece(int type);
         void Clear();
+    }
+
+    public interface IValidateAndVisualPiece
+    {
+        bool IsValid(int type);
+        GameObject GetVisualPiece(int type);
     }
 }

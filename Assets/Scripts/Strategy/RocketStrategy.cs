@@ -2,22 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Tactile.TactileMatch3Challenge.Model;
 using Tactile.TactileMatch3Challenge.PieceSpawn;
-using UnityEngine;
 
 namespace Tactile.TactileMatch3Challenge.Strategy
 {
-    public class RockedStrategy : IStrategy
+    public class RocketStrategy : BaseStrategy, IStrategy
     {
-        private readonly IPieceSpawner pieceSpawner;
-
-        public RockedStrategy(IPieceSpawner pieceSpawner)
+        public RocketStrategy(IPieceSpawner pieceSpawner) : base(pieceSpawner)
         {
-            this.pieceSpawner = pieceSpawner;
-        }
-
-        public GameObject CreateVisualPiece(Piece piece)
-        {
-            return pieceSpawner.GetVisualPiece(piece.type);
         }
 
         public void Fill(IBoard board, Dictionary<Piece, ChangeInfo> result)
@@ -42,15 +33,10 @@ namespace Tactile.TactileMatch3Challenge.Strategy
             };
         }
 
-        public void Reset()
-        {
-            pieceSpawner.Clear();
-        }
-
         public bool Solve(int x, int y, IBoard board, Dictionary<Piece, ChangeInfo> result)
         {
             var piece = board.GetAt(x, y);
-            if (!pieceSpawner.IsRelevant(piece.type))
+            if (!pieceSpawner.IsValid(piece.type))
             {
                 return false;
             }

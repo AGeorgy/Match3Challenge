@@ -35,7 +35,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
             throw new System.NotImplementedException();
         }
 
-        public bool IsRelevant(int type)
+        public bool IsValid(int type)
         {
             return true;
         }
