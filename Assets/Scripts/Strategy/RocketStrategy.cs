@@ -13,18 +13,19 @@ namespace Tactile.TactileMatch3Challenge.Strategy
 
         public void Fill(IBoard board, Dictionary<Piece, ChangeInfo> result)
         {
-            if (result.Count < 5)
+            var removed = GetRemovedPieces(result);
+            if (removed.Count < 5)
             {
                 return;
             }
 
-            if (!result.All(x => x.Key.type.Equals(result.First().Key.type)))
+            var firstPiece = removed.First();
+            if (!removed.All(x => x.Key.type.Equals(firstPiece.Key.type)))
             {
                 return;
             }
 
-            var firstPiece = result.Values.First();
-            var pos = firstPiece.CurrPos;
+            var pos = firstPiece.Value.CurrPos;
             var piece = board.CreatePiece(pieceSpawner.GetRandomPiece(), pos.x, pos.y);
             result[piece] = new ChangeInfo()
             {
@@ -45,6 +46,20 @@ namespace Tactile.TactileMatch3Challenge.Strategy
             solver.Solve(x, y, board, result);
 
             return result.Count > 0;
+        }
+
+        private Dictionary<Piece, ChangeInfo> GetRemovedPieces(Dictionary<Piece, ChangeInfo> changeSequance)
+        {
+            var result = new Dictionary<Piece, ChangeInfo>();
+            foreach (var pieceInfo in changeSequance)
+            {
+                if (pieceInfo.Value.Change == ChangeType.Removed)
+                {
+                    result[pieceInfo.Key] = pieceInfo.Value;
+                }
+            }
+
+            return result;
         }
     }
 }

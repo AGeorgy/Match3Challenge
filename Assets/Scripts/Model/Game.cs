@@ -62,7 +62,7 @@ namespace Tactile.TactileMatch3Challenge.Model
             }
         }
 
-        internal void Reset()
+        public void Reset()
         {
             foreach (var strategy in strategies)
             {

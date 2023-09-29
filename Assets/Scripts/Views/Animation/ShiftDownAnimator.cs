@@ -66,12 +66,12 @@ namespace Tactile.TactileMatch3Challenge.Views.Animation
             return waveDelay * wave;
         }
 
-        internal void Add(Piece piece, GameObject gameObject)
+        public void Add(Piece piece, GameObject gameObject)
         {
             visualPieces.Add(piece, gameObject.GetComponent<AnimatedVisualPiece>());
         }
 
-        internal void Clear()
+        public void Clear()
         {
             visualPieces.Clear();
         }
