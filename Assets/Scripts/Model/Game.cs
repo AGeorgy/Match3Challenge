@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Tactile.TactileMatch3Challenge.Level;
-using Tactile.TactileMatch3Challenge.Strategy;
+using Tactile.TactileMatch3Challenge.Model.Strategy;
 using UnityEngine;
 
 namespace Tactile.TactileMatch3Challenge.Model
@@ -22,10 +22,9 @@ namespace Tactile.TactileMatch3Challenge.Model
         {
             foreach (var strategy in strategies)
             {
-                var pieceSpawner = strategy.ValidateAndGetVisualPiece;
-                if (pieceSpawner.IsValid(piece.Type))
+                if (strategy.IndexValidator.GetValidIndex(piece.Type, out var index))
                 {
-                    return pieceSpawner.GetVisualPiece(piece.Type);
+                    return strategy.VisualPieceProvider.GetVisualPiece(index);
                 }
             }
 

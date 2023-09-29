@@ -1,8 +1,9 @@
-﻿using System;
-using Tactile.TactileMatch3Challenge.Level;
+﻿using Tactile.TactileMatch3Challenge.Level;
 using Tactile.TactileMatch3Challenge.Model;
+using Tactile.TactileMatch3Challenge.Model.PieceGenerators;
 using Tactile.TactileMatch3Challenge.PieceSpawn;
-using Tactile.TactileMatch3Challenge.Strategy;
+using Tactile.TactileMatch3Challenge.Model.Solvers;
+using Tactile.TactileMatch3Challenge.Model.Strategy;
 using Tactile.TactileMatch3Challenge.ViewComponents;
 using UnityEngine;
 
@@ -11,10 +12,13 @@ namespace Tactile.TactileMatch3Challenge
     public class Boot : MonoBehaviour
     {
         [SerializeField] private BoardRenderer boardRenderer;
-        [SerializeField] private RockedPieceSpawner rockedPieceSpawner;
-        [SerializeField] private RegularPieceSpawner regularPieceSpawner;
+        [SerializeField] private SpriteDatabase rockedSpriteDatabase;
+        [SerializeField] private PieceSpawner rockedPieceSpawner;
+        [SerializeField] private SpriteDatabase regularSpriteDatabase;
+        [SerializeField] private PieceSpawner regularPieceSpawner;
         [SerializeField] private CollectOneTypePiecesInTurnsSetting goalSetting;
         [SerializeField] private LevelInfo levelInfo;
+
 
         private Board board;
         private GameLevel gameLevel;
@@ -24,8 +28,8 @@ namespace Tactile.TactileMatch3Challenge
             board = new Board();
             UpdateBoard();
             CreateGameLevel();
-            var game = new Game(board, gameLevel,
-            new RocketStrategy(rockedPieceSpawner), new SameTypeStrategy(regularPieceSpawner));
+
+            var game = new Game(board, gameLevel, GetStrategies());
 
             boardRenderer.Initialize(board, game);
 
@@ -38,6 +42,21 @@ namespace Tactile.TactileMatch3Challenge
         {
             gameLevel.Achieved -= OnGameGoalAchieved;
             gameLevel.InfoUpdated -= OnGameLevelInfoUpdated;
+        }
+
+        private IStrategy[] GetStrategies()
+        {
+            rockedPieceSpawner.SetSpriteDatabase(rockedSpriteDatabase);
+            regularPieceSpawner.SetSpriteDatabase(regularSpriteDatabase);
+            var regularGenerator = new PieceGenerator(0, regularSpriteDatabase.Size);
+            var rockedGenerator = new PieceGenerator(regularSpriteDatabase.Size, rockedSpriteDatabase.Size);
+
+            var strategies = new IStrategy[] {
+                new RocketStrategy(rockedPieceSpawner, rockedGenerator, new SolverProvider(new HorizontalLineSolver(),new VerticalLineSolver())),
+                new SameTypeStrategy(regularPieceSpawner, regularGenerator, new SolverProvider(new ConnectedSameTypeSolver())),
+            };
+
+            return strategies;
         }
 
         private void UpdateBoard()

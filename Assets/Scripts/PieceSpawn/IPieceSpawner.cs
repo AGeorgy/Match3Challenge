@@ -1,18 +1,14 @@
-using Tactile.TactileMatch3Challenge.Solvers;
 using UnityEngine;
 
 namespace Tactile.TactileMatch3Challenge.PieceSpawn
 {
-    public interface IPieceSpawner : IValidateAndVisualPiece
+    public interface IPieceSpawner : IGetVisualPiece
     {
-        ISolver GetSolver(int type);
-        int GetRandomPiece();
         void Clear();
     }
 
-    public interface IValidateAndVisualPiece
+    public interface IGetVisualPiece
     {
-        bool IsValid(int type);
-        GameObject GetVisualPiece(int type);
+        GameObject GetVisualPiece(int index);
     }
 }

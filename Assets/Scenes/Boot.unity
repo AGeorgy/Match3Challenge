@@ -233,8 +233,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardRenderer: {fileID: 1201935908}
-  rockedPieceSpawner: {fileID: 1247468971}
-  regularPieceSpawner: {fileID: 1453473626}
+  rockedSpriteDatabase: {fileID: 11400000, guid: d9ea97af0b76343f8b9bd218cc743d26,
+    type: 2}
+  rockedPieceSpawner: {fileID: 1247468973}
+  regularSpriteDatabase: {fileID: 11400000, guid: 2e7accf4a99d74d6cac9a7ac81188043,
+    type: 2}
+  regularPieceSpawner: {fileID: 1453473628}
   goalSetting: {fileID: 11400000, guid: 628a567d544a6477f84ae4f836af348a, type: 2}
   levelInfo: {fileID: 1091999949}
 --- !u!4 &625045359
@@ -469,7 +473,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1247468972}
-  - component: {fileID: 1247468971}
+  - component: {fileID: 1247468973}
   m_Layer: 0
   m_Name: RocketSpawner
   m_TagString: Untagged
@@ -477,21 +481,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1247468971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247468970}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 261f963525f95458ea11ab18b788aa77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visualPiecePrefab: {fileID: 114334551203518046, guid: a14f92336230741b5b256d52dd03cc86,
-    type: 3}
-  pieceSettings: {fileID: 11400000, guid: 21ae6f8721eee4c8db58030caeaeaeea, type: 2}
 --- !u!4 &1247468972
 Transform:
   m_ObjectHideFlags: 0
@@ -507,6 +496,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1247468973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247468970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a84b5eab949475faf182a8ae87d787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualPiecePrefab: {fileID: 114334551203518046, guid: a14f92336230741b5b256d52dd03cc86,
+    type: 3}
 --- !u!850595691 &1338027044
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -679,7 +682,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1453473627}
-  - component: {fileID: 1453473626}
+  - component: {fileID: 1453473628}
   m_Layer: 0
   m_Name: RegularSpawner
   m_TagString: Untagged
@@ -687,21 +690,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1453473626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1453473625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbde6bd4d435b4a158f589019fe8e22e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  visualPiecePrefab: {fileID: 114334551203518046, guid: a14f92336230741b5b256d52dd03cc86,
-    type: 3}
-  pieceSettings: {fileID: 11400000, guid: 8ceee43b4c85241098851f53857072de, type: 2}
 --- !u!4 &1453473627
 Transform:
   m_ObjectHideFlags: 0
@@ -717,6 +705,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1453473628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453473625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a84b5eab949475faf182a8ae87d787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualPiecePrefab: {fileID: 114334551203518046, guid: a14f92336230741b5b256d52dd03cc86,
+    type: 3}
 --- !u!1 &1628991387
 GameObject:
   m_ObjectHideFlags: 0

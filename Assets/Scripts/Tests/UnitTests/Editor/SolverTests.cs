@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Tactile.TactileMatch3Challenge.Model;
-using Tactile.TactileMatch3Challenge.Solvers;
+using Tactile.TactileMatch3Challenge.Model.Solvers;
 
 namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
 {

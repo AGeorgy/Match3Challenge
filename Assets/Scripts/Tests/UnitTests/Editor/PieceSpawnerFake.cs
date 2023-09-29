@@ -1,5 +1,5 @@
 using Tactile.TactileMatch3Challenge.PieceSpawn;
-using Tactile.TactileMatch3Challenge.Solvers;
+using Tactile.TactileMatch3Challenge.Model.Solvers;
 using UnityEngine;
 
 namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
