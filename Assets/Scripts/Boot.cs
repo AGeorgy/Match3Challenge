@@ -26,12 +26,13 @@ namespace Tactile.TactileMatch3Challenge
         [SerializeField] private PieceSpawner regularPieceSpawner;
         [SerializeField] private GoalProvider goalProvider;
 
-
         private Board board;
         private GameLevel gameLevel;
+        private App app;
 
         void Start()
         {
+            app = new App();
             board = new Board();
             UpdateBoard();
             CreateGameLevel();
