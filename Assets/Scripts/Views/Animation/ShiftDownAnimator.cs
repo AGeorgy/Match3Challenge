@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Tactile.TactileMatch3Challenge.Views.Animation
 {
     [CreateAssetMenu(fileName = "Animator", menuName = "Tactile/Animator", order = 1)]
-    public class ShiftDownAnimator : ScriptableObject
+    public class ShiftDownAnimator : ScriptableObject, IAddVisualPiece, IAnimatorClear, IAnimateSequance
     {
         [SerializeField] private float waveDelay = 0.2f;
 

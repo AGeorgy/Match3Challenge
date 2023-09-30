@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 
-namespace Tactile.TactileMatch3Challenge.Model
+namespace Tactile.TactileMatch3Challenge.Model.Board
 {
-    public class Board : IBoard
+    public class Board : IBoard, IIsWithinBounds
     {
         private Piece[,] boardState;
 
         public static Board Create(int[,] definition)
         {
             var board = new Board();
-            board.Update(definition);
+            board.SetState(definition);
             return board;
         }
 
@@ -17,7 +17,7 @@ namespace Tactile.TactileMatch3Challenge.Model
 
         public int Height => boardState.GetLength(1);
 
-        public void Update(int[,] definition)
+        public void SetState(int[,] definition)
         {
             var transposed = ArrayUtility.TransposeArray(definition);
             CreatePieces(transposed);

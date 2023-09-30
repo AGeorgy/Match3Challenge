@@ -9,7 +9,7 @@ namespace Tactile.TactileMatch3Challenge.Application
         private IGameStage activeStage;
         private IGameStage[] gameStages;
 
-        public App(AppContext ctx)
+        public void InitGameStages(AppContext ctx)
         {
             gameStages = new IGameStage[]
             {
@@ -20,6 +20,9 @@ namespace Tactile.TactileMatch3Challenge.Application
             };
 
             SubscribeOnFinish();
+
+            activStageIndex = 0;
+            TurnStageOn();
         }
 
         public void Dispose()

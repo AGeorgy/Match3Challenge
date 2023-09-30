@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Tactile.TactileMatch3Challenge.Model.Board;
 
 namespace Tactile.TactileMatch3Challenge.Model.Solvers
 {

@@ -9,14 +9,21 @@ using UnityEngine;
 using Tactile.TactileMatch3Challenge.Settings;
 using Tactile.TactileMatch3Challenge.InputSystem;
 using Tactile.TactileMatch3Challenge.Application;
+using Tactile.TactileMatch3Challenge.Views.Animation;
+using Tactile.TactileMatch3Challenge.Model.Game;
+using Tactile.TactileMatch3Challenge.Model.Board;
 
 namespace Tactile.TactileMatch3Challenge
 {
-    public class Boot : MonoBehaviour
+    public class Boot : MonoBehaviour, IDestroy
     {
+        [SerializeField] private GoalProvider goalProvider;
         [SerializeField] private SimpleUnityInputSystem inputSystem;
+        [SerializeField] private ShiftDownAnimator animator; [Space]
+        [Space]
+        [Header("View")]
         [SerializeField] private LevelInfo levelInfo;
-        [SerializeField] private BoardRenderer boardRenderer;
+        [SerializeField] private GameOver gameOver;
         [Space]
         [Header("Rocket")]
         [SerializeField] private SolverSettingProvider rocketSolverSettingProvider;
@@ -27,33 +34,29 @@ namespace Tactile.TactileMatch3Challenge
         [SerializeField] private SolverSettingProvider regularSolverSettingProvider;
         [SerializeField] private SpriteDatabase regularSpriteDatabase;
         [SerializeField] private PieceSpawner regularPieceSpawner;
-        [SerializeField] private GoalProvider goalProvider;
 
-        private Board board;
-        private GameLevel gameLevel;
         private App app;
 
         void Start()
         {
+            app = new App();
+
             var ctx = new AppContext();
-            app = new App(ctx);
-            board = new Board();
-            UpdateBoard();
-            CreateGameLevel();
+            ctx.Register<IDestroy>(this);
+            ctx.Register<IInputSystem>(inputSystem);
+            ctx.Register<ILevelInfo>(levelInfo);
+            ctx.Register<IGameOver>(gameOver);
+            ctx.Register<IAddVisualPiece, IAnimatorClear, IAnimateSequance>(animator);
+            ctx.Register<IBoard, IIsWithinBounds>(new Board());
+            ctx.Register<IUpdateLevelStats, IGetGoalsSummary, IGameLevelAchieved, IIsAchieved, IGameLevelReset>(new GameLevel(goalProvider.GetAll()));
+            ctx.Register<IGetVisualForPiece, IResolve, IGameReset>(new Game(ctx, GetStrategies()));
 
-            var game = new Game(board, gameLevel, GetStrategies());
-
-            boardRenderer.Initialize(board, game);
-
-
-            levelInfo.RestartAction = RestartLevelInfo;
-            levelInfo.ResetView(gameLevel.GetGoalsSummary());
+            app.InitGameStages(ctx);
         }
 
         void OnDestroy()
         {
-            gameLevel.Achieved -= OnGameGoalAchieved;
-            gameLevel.InfoUpdated -= OnGameLevelInfoUpdated;
+            app.Dispose();
         }
 
         private IStrategy[] GetStrategies()
@@ -75,44 +78,9 @@ namespace Tactile.TactileMatch3Challenge
             return strategies;
         }
 
-        private void UpdateBoard()
+        public void Destroy(GameObject gameObject)
         {
-            int[,] boardDefinition = {
-                {3, 3, 1, 2, 3, 3},
-                {2, 2, 1, 2, 3, 3},
-                {1, 1, 0, 0, 2, 2},
-                {2, 2, 0, 0, 1, 1},
-                {1, 1, 2, 2, 1, 1},
-                {1, 1, 2, 2, 1, 4},
-            };
-
-            board.Update(boardDefinition);
-        }
-
-        private void CreateGameLevel()
-        {
-            gameLevel = new GameLevel(goalProvider.GetAll());
-            gameLevel.Achieved += OnGameGoalAchieved;
-            gameLevel.InfoUpdated += OnGameLevelInfoUpdated;
-        }
-
-        private void OnGameLevelInfoUpdated(string levelinfo)
-        {
-            levelInfo.SetLevelInfo(levelinfo);
-        }
-
-        private void OnGameGoalAchieved(bool isWin)
-        {
-            boardRenderer.BlockInput();
-            levelInfo.SetWinState(isWin);
-        }
-
-        private void RestartLevelInfo()
-        {
-            UpdateBoard();
-            gameLevel.Reset();
-            levelInfo.ResetView(gameLevel.GetGoalsSummary());
-            boardRenderer.Reset();
+            Object.Destroy(gameObject);
         }
     }
 }

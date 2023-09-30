@@ -5,12 +5,14 @@ using Tactile.TactileMatch3Challenge.Model;
 
 namespace Tactile.TactileMatch3Challenge.Level
 {
-    public class GameLevel : IGameLevel
+    public class GameLevel : IUpdateLevelStats, IGetGoalsSummary, IGameLevelAchieved, IIsAchieved, IGameLevelReset
     {
-        public event Action<bool> Achieved;
-        public event Action<string> InfoUpdated;
+        public event Action Achieved;
 
         private readonly IGoal[] goals;
+        private bool isAchieved;
+
+        public bool IsAchieved => isAchieved;
 
         public GameLevel(params IGoal[] goals)
         {
@@ -38,8 +40,6 @@ namespace Tactile.TactileMatch3Challenge.Level
             {
                 UpdateInfoAndAchieved(true);
             }
-
-            InfoUpdated?.Invoke(GetGoalsSummary());
         }
 
         public string GetGoalsSummary()
@@ -52,18 +52,18 @@ namespace Tactile.TactileMatch3Challenge.Level
             return summary.ToString();
         }
 
-        private void UpdateInfoAndAchieved(bool isAchieved)
-        {
-            InfoUpdated?.Invoke(GetGoalsSummary());
-            Achieved?.Invoke(isAchieved);
-        }
-
-        internal void Reset()
+        public void Reset()
         {
             foreach (var goal in goals)
             {
                 goal.Reset();
             }
+        }
+
+        private void UpdateInfoAndAchieved(bool isAchieved)
+        {
+            this.isAchieved = isAchieved;
+            Achieved?.Invoke();
         }
     }
 }

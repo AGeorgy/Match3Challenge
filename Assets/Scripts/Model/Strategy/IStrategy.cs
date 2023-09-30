@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Tactile.TactileMatch3Challenge.Model.Board;
 using Tactile.TactileMatch3Challenge.Model.PieceGenerators;
 using Tactile.TactileMatch3Challenge.PieceSpawn;
 

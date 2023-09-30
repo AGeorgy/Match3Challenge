@@ -1,20 +1,22 @@
 using System.Collections.Generic;
+using Tactile.TactileMatch3Challenge.Application;
 using Tactile.TactileMatch3Challenge.Level;
+using Tactile.TactileMatch3Challenge.Model.Board;
 using Tactile.TactileMatch3Challenge.Model.Strategy;
 using UnityEngine;
 
-namespace Tactile.TactileMatch3Challenge.Model
+namespace Tactile.TactileMatch3Challenge.Model.Game
 {
-    public class Game
+    public class Game : IGetVisualForPiece, IResolve, IGameReset
     {
         private readonly IBoard board;
-        private readonly IGameLevel gameLevel;
+        private readonly IUpdateLevelStats gameLevel;
         private readonly IStrategy[] strategies;
 
-        public Game(IBoard board, IGameLevel gameLevel, params IStrategy[] strategies)
+        public Game(IAppContext ctx, params IStrategy[] strategies)
         {
-            this.board = board;
-            this.gameLevel = gameLevel;
+            board = ctx.Resolve<IBoard>();
+            gameLevel = ctx.Resolve<IUpdateLevelStats>();
             this.strategies = strategies;
         }
 

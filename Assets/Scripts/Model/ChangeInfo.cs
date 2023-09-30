@@ -1,15 +1,15 @@
 using System;
 
-namespace Tactile.TactileMatch3Challenge.Model {
+namespace Tactile.TactileMatch3Challenge.Model
+{
+    public class ChangeInfo
+    {
+        public ChangeType Change { get; set; }
+        public int CreationTime { get; set; }
+        public BoardPos CurrPos { get; set; }
+        public BoardPos ToPos { get; set; }
 
-	public class ChangeInfo {
-		
-		public ChangeType Change { get; set; }
-		public int CreationTime { get; set; }
-		public BoardPos CurrPos { get; set; }
-		public BoardPos ToPos { get; set; }
-		
-	}
+    }
 
     [Flags]
     public enum ChangeType : short
@@ -19,5 +19,4 @@ namespace Tactile.TactileMatch3Challenge.Model {
         Removed = 4,
         CreatedAndMoved = Created | Moved,
     }
-
 }

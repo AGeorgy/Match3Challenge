@@ -3,6 +3,7 @@ using System.Linq;
 using Tactile.TactileMatch3Challenge.Model.PieceGenerators;
 using Tactile.TactileMatch3Challenge.PieceSpawn;
 using Tactile.TactileMatch3Challenge.Model.Solvers;
+using Tactile.TactileMatch3Challenge.Model.Board;
 
 namespace Tactile.TactileMatch3Challenge.Model.Strategy
 {
