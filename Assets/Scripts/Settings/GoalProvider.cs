@@ -1,8 +1,9 @@
 using UnityEngine;
 using Tactile.TactileMatch3Challenge.Level;
 using System.Collections.Generic;
+using Tactile.TactileMatch3Challenge.Goals;
 
-namespace Tactile.TactileMatch3Challenge.Goals
+namespace Tactile.TactileMatch3Challenge.Settings
 {
     [CreateAssetMenu(fileName = "GoalProvider", menuName = "Tactile/GoalProvider")]
     public class GoalProvider : ScriptableObject
