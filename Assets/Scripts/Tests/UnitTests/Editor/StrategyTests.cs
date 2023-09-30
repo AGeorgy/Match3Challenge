@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Tactile.TactileMatch3Challenge.Model;
-using Tactile.TactileMatch3Challenge.Solvers;
-using Tactile.TactileMatch3Challenge.Strategy;
+using Tactile.TactileMatch3Challenge.Model.Board;
+using Tactile.TactileMatch3Challenge.Model.PieceGenerators;
+using Tactile.TactileMatch3Challenge.Model.Solvers;
+using Tactile.TactileMatch3Challenge.Model.Strategy;
+using Tactile.TactileMatch3Challenge.PieceSpawn;
 
 namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
 {
@@ -22,9 +25,9 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
                 {4, 4, 1, 4, 0},
                 {v, v, 4, 0, 0}
             };
-            var randomSpawner = new PieceSpawnerFake(8, new ConnectedSameTypeSolver());
             var board = Board.Create(state);
-            var strategy = new SameTypeStrategy(randomSpawner);
+            var pieceGenerator = new PieceGeneratorFake(8, 0, 5);
+            var strategy = new SameTypeStrategy(null, pieceGenerator, new SolverProvider(new ConnectedSameTypeSolver()));
 
             // Act
             var resultTemp = new Dictionary<Piece, ChangeInfo>();
@@ -58,9 +61,10 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
                 {4, 4, 1, 4, 0},
                 {v, v, 4, 0, 0}
             };
-            var randomSpawner = new PieceSpawnerFake(8, new HorizontalLineSolver());
+
             var board = Board.Create(state);
-            var strategy = new SameTypeStrategy(randomSpawner);
+            var pieceGenerator = new PieceGeneratorFake(8, 0, 5);
+            var strategy = new SameTypeStrategy(null, pieceGenerator, new SolverProvider(new HorizontalLineSolver()));
 
             // Act
             var resultTemp = new Dictionary<Piece, ChangeInfo>();
@@ -94,9 +98,10 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
                 {4, 4, 1, 4, 0},
                 {v, v, 4, 0, 0}
             };
-            var randomSpawner = new PieceSpawnerFake(8, new VerticalLineSolver());
+
             var board = Board.Create(state);
-            var strategy = new SameTypeStrategy(randomSpawner);
+            var pieceGenerator = new PieceGeneratorFake(8, 0, 5);
+            var strategy = new SameTypeStrategy(null, pieceGenerator, new SolverProvider(new VerticalLineSolver()));
 
             // Act
             var resultTemp = new Dictionary<Piece, ChangeInfo>();

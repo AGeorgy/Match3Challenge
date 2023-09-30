@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Tactile.TactileMatch3Challenge.Views.Animation {
-    
+namespace Tactile.TactileMatch3Challenge.Views.Animation
+{
     [RequireComponent(typeof(SpriteRenderer))]
-    public class AnimatedVisualPiece : MonoBehaviour {
+    public class AnimatedVisualPiece : MonoBehaviour
+    {
         [SerializeField] private float spawnAnimationDuration = 0.2f;
         [SerializeField] private float moveAnimationDuration = 0.2f;
         [SerializeField] private float destroyAnimationDuration = 0.2f;
@@ -35,16 +36,19 @@ namespace Tactile.TactileMatch3Challenge.Views.Animation {
             StartCoroutineIfStacked();
         }
 
-        private IEnumerator DelayCoroutine(float delay){
+        private IEnumerator DelayCoroutine(float delay)
+        {
             yield return new WaitForSeconds(delay);
             FinishAndStartNextAnimation();
         }
 
-        private IEnumerator AnimateSpawnCoroutine(Vector3 from){
+        private IEnumerator AnimateSpawnCoroutine(Vector3 from)
+        {
             transform.localScale = Vector3.zero;
             transform.position = from;
             float time = 0;
-            while(time < spawnAnimationDuration){
+            while (time < spawnAnimationDuration)
+            {
                 time += Time.deltaTime;
                 transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, time / spawnAnimationDuration);
                 yield return null;
@@ -57,7 +61,8 @@ namespace Tactile.TactileMatch3Challenge.Views.Animation {
         {
             transform.position = from;
             float time = 0;
-            while(time < moveAnimationDuration){
+            while (time < moveAnimationDuration)
+            {
                 time += Time.deltaTime;
                 transform.position = Vector3.Lerp(from, to, time / moveAnimationDuration);
                 yield return null;
@@ -70,7 +75,8 @@ namespace Tactile.TactileMatch3Challenge.Views.Animation {
         {
             transform.localScale = Vector3.one;
             float time = 0;
-            while(time < destroyAnimationDuration){
+            while (time < destroyAnimationDuration)
+            {
                 time += Time.deltaTime;
                 transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, time / spawnAnimationDuration);
                 yield return null;
@@ -88,7 +94,8 @@ namespace Tactile.TactileMatch3Challenge.Views.Animation {
 
         private void StartCoroutineIfStacked()
         {
-            if(currentAnimation == null && animationStack.Count > 0){
+            if (currentAnimation == null && animationStack.Count > 0)
+            {
                 currentAnimation = StartCoroutine(animationStack.Dequeue());
             }
         }

@@ -1,13 +1,14 @@
-namespace Tactile.TactileMatch3Challenge.Model {
+namespace Tactile.TactileMatch3Challenge.Model
+{
+    public struct BoardPos
+    {
+        public int x;
+        public int y;
 
-	public struct BoardPos {
-		public int x;
-		public int y;
-
-		public BoardPos(int x,int y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
-
+        public BoardPos(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
 }

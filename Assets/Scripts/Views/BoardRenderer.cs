@@ -1,4 +1,6 @@
 ﻿using Tactile.TactileMatch3Challenge.Model;
+using Tactile.TactileMatch3Challenge.Model.Board;
+using Tactile.TactileMatch3Challenge.Model.Game;
 using Tactile.TactileMatch3Challenge.Views.Animation;
 using UnityEngine;
 
@@ -66,27 +68,27 @@ namespace Tactile.TactileMatch3Challenge.ViewComponents
             game.Reset();
         }
 
-        private void Update()
-        {
-            if (!isInputBlocked && Input.GetMouseButtonDown(0))
-            {
-                var pos = ScreenPosToLogicPos(Input.mousePosition.x, Input.mousePosition.y);
+        // private void Update()
+        // {
+        //     if (!isInputBlocked && Input.GetMouseButtonDown(0))
+        //     {
+        //         var pos = ScreenPosToLogicPos(Input.mousePosition.x, Input.mousePosition.y);
 
-                if (board.IsWithinBounds(pos.x, pos.y))
-                {
-                    var resolved = game.Resolve(pos.x, pos.y);
+        //         if (board.IsWithinBounds(pos.x, pos.y))
+        //         {
+        //             var resolved = game.Resolve(pos.x, pos.y);
 
-                    animator.AnimateSequance(resolved, (go) =>
-                    {
-                        Object.Destroy(go);
-                    }, (go) => CreateVisualPieceAndAddToAnimator(go));
-                }
-            }
-        }
+        //             animator.AnimateSequance(resolved, (go) =>
+        //             {
+        //                 Object.Destroy(go);
+        //             }, (piece) => CreateVisualPieceAndAddToAnimator(piece));
+        //         }
+        //     }
+        // }
 
         private GameObject CreateVisualPieceAndAddToAnimator(Piece piece)
         {
-            var visualPieceGO = game.CreatePiece(piece);
+            var visualPieceGO = game.GetVisualForPiece(piece);
             animator.Add(piece, visualPieceGO);
             return visualPieceGO;
         }

@@ -6,9 +6,8 @@ using UnityEngine;
 
 namespace Tactile.TactileMatch3Challenge.Views.Animation
 {
-
     [CreateAssetMenu(fileName = "Animator", menuName = "Tactile/Animator", order = 1)]
-    public class ShiftDownAnimator : ScriptableObject
+    public class ShiftDownAnimator : ScriptableObject, IAddVisualPiece, IAnimatorClear, IAnimateSequance
     {
         [SerializeField] private float waveDelay = 0.2f;
 
@@ -66,12 +65,16 @@ namespace Tactile.TactileMatch3Challenge.Views.Animation
             return waveDelay * wave;
         }
 
-        internal void Add(Piece piece, GameObject gameObject)
+        public void Add(Piece piece, GameObject gameObject)
         {
+            if (gameObject == null)
+            {
+                throw new ArgumentNullException(nameof(gameObject));
+            }
             visualPieces.Add(piece, gameObject.GetComponent<AnimatedVisualPiece>());
         }
 
-        internal void Clear()
+        public void Clear()
         {
             visualPieces.Clear();
         }

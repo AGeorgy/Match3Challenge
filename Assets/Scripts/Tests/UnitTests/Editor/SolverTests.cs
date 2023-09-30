@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Tactile.TactileMatch3Challenge.Model;
-using Tactile.TactileMatch3Challenge.Solvers;
+using Tactile.TactileMatch3Challenge.Model.Board;
+using Tactile.TactileMatch3Challenge.Model.Solvers;
 
 namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
 {
@@ -102,7 +103,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
 
         private int[] GetTypesFromPieces(Dictionary<Piece, ChangeInfo> result)
         {
-            return result.Select(p => p.Key.type).ToArray();
+            return result.Select(p => p.Key.Type).ToArray();
         }
     }
 }

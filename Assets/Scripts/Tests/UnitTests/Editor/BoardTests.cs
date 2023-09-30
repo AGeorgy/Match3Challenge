@@ -1,11 +1,39 @@
 using System;
 using NUnit.Framework;
 using Tactile.TactileMatch3Challenge.Model;
+using Tactile.TactileMatch3Challenge.Model.Board;
 
 namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
 {
     public class BoardTests
     {
+        [Test]
+        public void BoardUpdate()
+        {
+            // Arrange
+            int[,] state = {
+                {0, 1, 2}
+            };
+            var board = Board.Create(state);
+
+            // Act
+            var result = board.GetBoardStateAsArrayWithTypes();
+            // Assert
+            Assert.AreEqual(result, state);
+
+            // Arrange
+            int[,] stateUpdated = {
+                {0, 1, 2, 3},
+                {0, 1, 2, 3}
+            };
+            board.SetState(stateUpdated);
+
+            // Act
+            result = board.GetBoardStateAsArrayWithTypes();
+            // Assert
+            Assert.AreEqual(result, stateUpdated);
+        }
+
         [Test]
         public void Width_GivenBoardDefinition_ShouldReturnLengthOfXAxis()
         {
@@ -53,7 +81,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
             var board = Board.Create(state);
 
             // Act & Assert
-            return board.GetAt(x, y).type;
+            return board.GetAt(x, y).Type;
         }
 
         [Test]
@@ -83,8 +111,8 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
             var board = Board.Create(state);
 
             //Assert
-            Assert.That(board.GetAt(0, 0).type, Is.EqualTo(0));
-            Assert.That(board.GetAt(4, 1).type, Is.EqualTo(5));
+            Assert.That(board.GetAt(0, 0).Type, Is.EqualTo(0));
+            Assert.That(board.GetAt(4, 1).Type, Is.EqualTo(5));
         }
     }
 
