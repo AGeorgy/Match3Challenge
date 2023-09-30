@@ -8,6 +8,7 @@ using Tactile.TactileMatch3Challenge.ViewComponents;
 using UnityEngine;
 using Tactile.TactileMatch3Challenge.Settings;
 using Tactile.TactileMatch3Challenge.InputSystem;
+using Tactile.TactileMatch3Challenge.Application;
 
 namespace Tactile.TactileMatch3Challenge
 {
@@ -34,7 +35,8 @@ namespace Tactile.TactileMatch3Challenge
 
         void Start()
         {
-            app = new App();
+            var ctx = new AppContext();
+            app = new App(ctx);
             board = new Board();
             UpdateBoard();
             CreateGameLevel();

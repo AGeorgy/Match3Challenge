@@ -1,7 +1,7 @@
 using System;
 using Tactile.TactileMatch3Challenge.GameStages;
 
-namespace Tactile.TactileMatch3Challenge
+namespace Tactile.TactileMatch3Challenge.Application
 {
     public class App : IDisposable
     {
@@ -9,14 +9,14 @@ namespace Tactile.TactileMatch3Challenge
         private IGameStage activeStage;
         private IGameStage[] gameStages;
 
-        public App()
+        public App(AppContext ctx)
         {
             gameStages = new IGameStage[]
             {
-                new InitStage(),
-                new GamePlayStage(),
-                new GameOverStage(),
-                new ResetStage()
+                new InitStage(ctx),
+                new GamePlayStage(ctx),
+                new GameOverStage(ctx),
+                new ResetStage(ctx)
             };
 
             SubscribeOnFinish();
