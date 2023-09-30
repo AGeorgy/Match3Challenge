@@ -20,7 +20,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
             };
 
             var achievedEventFired = GoalCondition.NotAchieved;
-            level.Achieved += (isAchieved) => achievedEventFired = isAchieved ? GoalCondition.Achieved : GoalCondition.Failed;
+            level.Achieved += () => achievedEventFired = level.IsAchieved ? GoalCondition.Achieved : GoalCondition.Failed;
 
             // Act
             level.UpdateLevelStats(solvedData);

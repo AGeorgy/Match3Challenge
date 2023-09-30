@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using Tactile.TactileMatch3Challenge.Model;
+using Tactile.TactileMatch3Challenge.Model.Board;
 
 namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
 {
@@ -25,7 +26,7 @@ namespace Tactile.TactileMatch3Challenge.Tests.UnitTests
                 {0, 1, 2, 3},
                 {0, 1, 2, 3}
             };
-            board.Update(stateUpdated);
+            board.SetState(stateUpdated);
 
             // Act
             result = board.GetBoardStateAsArrayWithTypes();

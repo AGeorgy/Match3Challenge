@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Tactile.TactileMatch3Challenge.Model;
+using Tactile.TactileMatch3Challenge.Model.Board;
 using Tactile.TactileMatch3Challenge.Model.PieceGenerators;
 using Tactile.TactileMatch3Challenge.Model.Solvers;
 using Tactile.TactileMatch3Challenge.Model.Strategy;
