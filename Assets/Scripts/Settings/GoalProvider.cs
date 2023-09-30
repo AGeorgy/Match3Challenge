@@ -1,22 +1,19 @@
 using UnityEngine;
 using Tactile.TactileMatch3Challenge.Level;
-using System.Collections.Generic;
 using Tactile.TactileMatch3Challenge.Goals;
 
 namespace Tactile.TactileMatch3Challenge.Settings
 {
     [CreateAssetMenu(fileName = "GoalProvider", menuName = "Tactile/GoalProvider")]
-    public class GoalProvider : ScriptableObject
+    public class GoalProvider : BaseSettingsProvider<IGoalSetting, IGoal>
     {
-        [SerializeReference, SubclassPicker]
-        private List<IGoalSetting> goals;
-
-        public IGoal[] GetGoals()
+        public override IGoal[] GetAll()
         {
-            var result = new IGoal[goals.Count];
-            for (int i = 0; i < goals.Count; i++)
+            var count = settings.Count;
+            var result = new IGoal[count];
+            for (int i = 0; i < count; i++)
             {
-                result[i] = goals[i].GetGoal();
+                result[i] = settings[i].GetGoal();
             }
 
             return result;

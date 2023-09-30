@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aab550bd98874986aa916c9ace684ee, type: 3}
   m_Name: SameTypeSettingProvider
   m_EditorClassIdentifier: 
-  solvers:
-  - rid: 3479984663018340363
+  settings:
+  - rid: 3479984663018340367
   references:
     version: 2
     RefIds:
-    - rid: 3479984663018340363
+    - rid: 3479984663018340367
       type: {class: ConnectedSameTypeSolver, ns: Tactile.TactileMatch3Challenge.Model.Solvers,
         asm: Assembly-CSharp}

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 461f0fa6b9b5c41d3bb18772276e4452, type: 3}
   m_Name: GoalProvider
   m_EditorClassIdentifier: 
-  goals:
-  - rid: 3479984663018340360
+  settings:
+  - rid: 3479984663018340364
   references:
     version: 2
     RefIds:
-    - rid: 3479984663018340360
+    - rid: 3479984663018340364
       type: {class: CollectOneTypePiecesInTurnsSetting, ns: Tactile.TactileMatch3Challenge.Goals,
         asm: Assembly-CSharp}
       data:

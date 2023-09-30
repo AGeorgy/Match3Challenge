@@ -59,8 +59,8 @@ namespace Tactile.TactileMatch3Challenge
             var regularGenerator = new PieceGenerator(0, regularSpriteDatabase.Size);
             var rockedGenerator = new PieceGenerator(regularSpriteDatabase.Size, rocketSpriteDatabase.Size);
 
-            var rocketSolver = new SolverProvider(rocketSolverSettingProvider.GetSolvers());
-            var regularSolver = new SolverProvider(regularSolverSettingProvider.GetSolvers());
+            var rocketSolver = new SolverProvider(rocketSolverSettingProvider.GetAll());
+            var regularSolver = new SolverProvider(regularSolverSettingProvider.GetAll());
 
             var strategies = new IStrategy[] {
                 new RocketStrategy(rocketPieceSpawner, rockedGenerator, rocketSolver),
@@ -86,7 +86,7 @@ namespace Tactile.TactileMatch3Challenge
 
         private void CreateGameLevel()
         {
-            gameLevel = new GameLevel(goalProvider.GetGoals());
+            gameLevel = new GameLevel(goalProvider.GetAll());
             gameLevel.Achieved += OnGameGoalAchieved;
             gameLevel.InfoUpdated += OnGameLevelInfoUpdated;
         }

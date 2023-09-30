@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aab550bd98874986aa916c9ace684ee, type: 3}
   m_Name: RockedSolverSettingProvider
   m_EditorClassIdentifier: 
-  solvers:
-  - rid: 3479984663018340361
-  - rid: 3479984663018340362
+  settings:
+  - rid: 3479984663018340365
+  - rid: 3479984663018340366
   references:
     version: 2
     RefIds:
-    - rid: 3479984663018340361
+    - rid: 3479984663018340365
       type: {class: HorizontalLineSolver, ns: Tactile.TactileMatch3Challenge.Model.Solvers,
         asm: Assembly-CSharp}
-    - rid: 3479984663018340362
+    - rid: 3479984663018340366
       type: {class: VerticalLineSolver, ns: Tactile.TactileMatch3Challenge.Model.Solvers,
         asm: Assembly-CSharp}
