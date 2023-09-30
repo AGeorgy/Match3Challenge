@@ -7,11 +7,13 @@ using Tactile.TactileMatch3Challenge.Model.Strategy;
 using Tactile.TactileMatch3Challenge.ViewComponents;
 using UnityEngine;
 using Tactile.TactileMatch3Challenge.Settings;
+using Tactile.TactileMatch3Challenge.InputSystem;
 
 namespace Tactile.TactileMatch3Challenge
 {
     public class Boot : MonoBehaviour
     {
+        [SerializeField] private SimpleUnityInputSystem inputSystem;
         [SerializeField] private LevelInfo levelInfo;
         [SerializeField] private BoardRenderer boardRenderer;
         [Space]
