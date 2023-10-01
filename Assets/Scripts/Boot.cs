@@ -1,5 +1,4 @@
 ﻿using Tactile.TactileMatch3Challenge.Level;
-using Tactile.TactileMatch3Challenge.Model;
 using Tactile.TactileMatch3Challenge.Model.PieceGenerators;
 using Tactile.TactileMatch3Challenge.PieceSpawn;
 using Tactile.TactileMatch3Challenge.Model.Solvers;
@@ -19,7 +18,7 @@ namespace Tactile.TactileMatch3Challenge
     {
         [SerializeField] private GoalProvider goalProvider;
         [SerializeField] private SimpleUnityInputSystem inputSystem;
-        [SerializeField] private ShiftDownAnimator animator; [Space]
+        [SerializeField] private ShiftDownAnimator animator;
         [Space]
         [Header("View")]
         [SerializeField] private LevelInfo levelInfo;
