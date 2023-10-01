@@ -96,7 +96,7 @@ namespace Tactile.TactileMatch3Challenge.Model.Strategy
 
                     created[piece] = new ChangeInfo()
                     {
-                        CreationTime = resolveStep,
+                        ChangeStage = resolveStep,
                         Change = ChangeType.CreatedAndMoved,
                         ToPos = new BoardPos(x, y),
                         CurrPos = new BoardPos(x, y - 1)

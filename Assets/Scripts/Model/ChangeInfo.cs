@@ -5,7 +5,7 @@ namespace Tactile.TactileMatch3Challenge.Model
     public class ChangeInfo
     {
         public ChangeType Change { get; set; }
-        public int CreationTime { get; set; }
+        public int ChangeStage { get; set; }
         public BoardPos CurrPos { get; set; }
         public BoardPos ToPos { get; set; }
 

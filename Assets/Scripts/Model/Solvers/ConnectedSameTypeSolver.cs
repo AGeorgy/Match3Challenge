@@ -37,20 +37,19 @@ namespace Tactile.TactileMatch3Challenge.Model.Solvers
         {
             var neighbors = new List<Piece>(4);
 
-            neighbors = AddNeighbor(board, x - 1, y, neighbors); // Left
-            neighbors = AddNeighbor(board, x, y - 1, neighbors); // Top
-            neighbors = AddNeighbor(board, x + 1, y, neighbors); // Right
-            neighbors = AddNeighbor(board, x, y + 1, neighbors); // Bottom
+            AddNeighbor(board, x - 1, y, neighbors); // Left
+            AddNeighbor(board, x, y - 1, neighbors); // Top
+            AddNeighbor(board, x + 1, y, neighbors); // Right
+            AddNeighbor(board, x, y + 1, neighbors); // Bottom
 
             return neighbors.ToArray();
         }
 
-        private List<Piece> AddNeighbor(IBoard board, int x, int y, List<Piece> neighbors)
+        private void AddNeighbor(IBoard board, int x, int y, List<Piece> neighbors)
         {
-            if (!board.IsWithinBounds(x, y)) return neighbors;
+            if (!board.IsWithinBounds(x, y)) return;
 
             neighbors.Add(board.GetAt(x, y));
-            return neighbors;
         }
     }
 }

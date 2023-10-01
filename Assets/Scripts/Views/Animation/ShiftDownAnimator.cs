@@ -26,20 +26,20 @@ namespace Tactile.TactileMatch3Challenge.Views.Animation
                     onCreate(piece);
                     var newVisualPiece = visualPieces[piece];
                     var from = ViewUtils.LogicPosToVisualPos(changeInfo.CurrPos.x, changeInfo.CurrPos.y);
-                    newVisualPiece.GetComponent<AnimatedVisualPiece>().AnimateSpawn(GetDelay(changeInfo.CreationTime), from);
+                    newVisualPiece.GetComponent<AnimatedVisualPiece>().AnimateSpawn(GetDelay(changeInfo.ChangeStage), from);
                 }
                 else if (changeInfo.Change == ChangeType.Moved)
                 {
                     var visualPiece = visualPieces[piece];
                     var from = ViewUtils.LogicPosToVisualPos(changeInfo.CurrPos.x, changeInfo.CurrPos.y);
                     var to = ViewUtils.LogicPosToVisualPos(changeInfo.ToPos.x, changeInfo.ToPos.y);
-                    visualPiece.AnimateMove(GetDelay(changeInfo.CreationTime), from, to);
+                    visualPiece.AnimateMove(GetDelay(changeInfo.ChangeStage), from, to);
                 }
                 else if (changeInfo.Change == ChangeType.Removed)
                 {
                     var visualPiece = visualPieces[piece];
                     visualPieces.Remove(piece);
-                    visualPiece.AnimateDestroy(GetDelay(changeInfo.CreationTime), () =>
+                    visualPiece.AnimateDestroy(GetDelay(changeInfo.ChangeStage), () =>
                     {
                         onDestroy(visualPiece.gameObject);
                     });
@@ -50,7 +50,7 @@ namespace Tactile.TactileMatch3Challenge.Views.Animation
                     var newVisualPiece = visualPieces[piece];
                     var from = ViewUtils.LogicPosToVisualPos(changeInfo.CurrPos.x, changeInfo.CurrPos.y);
                     var to = ViewUtils.LogicPosToVisualPos(changeInfo.ToPos.x, changeInfo.ToPos.y);
-                    newVisualPiece.GetComponent<AnimatedVisualPiece>().AnimateSpawn(GetDelay(changeInfo.CreationTime), from);
+                    newVisualPiece.GetComponent<AnimatedVisualPiece>().AnimateSpawn(GetDelay(changeInfo.ChangeStage), from);
                     newVisualPiece.GetComponent<AnimatedVisualPiece>().AnimateMove(0, from, to);
                 }
                 else
